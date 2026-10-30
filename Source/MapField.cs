@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -134,6 +134,14 @@ namespace Imperialism_2_SGEditor
           ResourceIconVis = Visibility.Visible;
           ImgResource = resource.Image;
         }
+        else
+        {
+          ResourceIconVis = Visibility.Collapsed;
+        }
+      }
+      else
+      {
+        ResourceIconVis = Visibility.Collapsed;
       }
     }
   }

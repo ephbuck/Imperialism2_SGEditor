@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -178,7 +178,8 @@ namespace Imperialism_2_SGEditor
       //  StatusColor = Brushes.Orange;
       //}
 
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      var handler = PropertyChanged;
+      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
       //DB.NotifyCounter++;
     }
 

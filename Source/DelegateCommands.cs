@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Input;
 
 namespace Imperialism_2_SGEditor
@@ -46,7 +46,8 @@ namespace Imperialism_2_SGEditor
 
     public void RaiseCanExecuteChanged()
     {
-      CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+      var handler = CanExecuteChanged;
+      if (handler != null) handler(this, EventArgs.Empty);
     }
   }
 

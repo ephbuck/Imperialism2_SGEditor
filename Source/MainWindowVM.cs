@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -102,6 +102,45 @@ namespace Imperialism_2_SGEditor
     {
       get { return _playerColor; }
       set { _playerColor = value; NotifyPropertyChanged("PlayerColor"); }
+    }
+
+    private double _zoom = 1.0;
+
+    public double Zoom
+    {
+      get { return _zoom; }
+      set
+      {
+        double clamped = value;
+        if (clamped < 0.2) clamped = 0.2;
+        if (clamped > 4.0) clamped = 4.0;
+        if (Math.Abs(_zoom - clamped) > 0.0001)
+        {
+          _zoom = clamped;
+          NotifyPropertyChanged("Zoom");
+          NotifyPropertyChanged("ZoomPercentage");
+        }
+      }
+    }
+
+    public int ZoomPercentage
+    {
+      get { return (int)Math.Round(_zoom * 100); }
+    }
+
+    public void ZoomIn()
+    {
+      Zoom = Math.Round(Zoom * 1.25, 2);
+    }
+
+    public void ZoomOut()
+    {
+      Zoom = Math.Round(Zoom / 1.25, 2);
+    }
+
+    public void ResetZoom()
+    {
+      Zoom = 1.0;
     }
 
     public MainWindowVM()

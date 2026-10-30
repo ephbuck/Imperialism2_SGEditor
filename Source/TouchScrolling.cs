@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -116,7 +116,7 @@ namespace Imperialism_2_SGEditor
       var dy = point.Y - capture.Point.Y;
       var dx = point.X - capture.Point.X;
 
-      if (Math.Abs(dy) > 5)
+      if (Math.Abs(dy) > 5 || Math.Abs(dx) > 5)
       {
         target.CaptureMouse();
       }
