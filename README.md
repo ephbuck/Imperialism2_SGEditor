@@ -6,14 +6,36 @@ It's mostly a world editor.
 
 Be patient. There is no loading indicator and map editor loads about 10 seconds on fast computers.
 
+## Acknowledgments & Attribution
+
+* **[Reken41](https://github.com/Reken41)** – Original author and creator of the Imperialism 2 Save Game Editor.
+* **[jjalexander](https://github.com/jjalexander)** – Contributor (resource reveal fixes and improvements).
+
+> [!NOTE]
+> The recent additions and enhancements in this fork are mostly **vibe coded** (AI-assisted rapid prototyping and exploratory development).
+
 ## Features
 
 * Show/hide map for each player
 * Edit all cities on map:
   * Fort level, expansion, owner
-* Edit world map
-  * Owner, production, resources and more
-* Each element has raw data in bytes so you can modyfy stuff on yor own
+* Edit world map:
+  * Owner, production, resources, and more
+* Each element has raw data in bytes so you can modify stuff on your own
+
+### Recent Fork Additions (Vibe Coded)
+
+* **Interactive Map Zooming**:
+  * Smooth zoom controls via slider and dedicated zoom in/out/reset buttons.
+  * `Ctrl` + `Mouse Wheel` zooming centered on the mouse cursor position.
+  * Keyboard shortcuts: `Ctrl` + `+`, `Ctrl` + `-`, and `Ctrl` + `0` (reset).
+* **Smoothed Image Rendering**:
+  * Improved rendering quality with high-quality bitmap scaling for map tiles.
+* **Automated Terrain & Coastline Transition Engine**:
+  * Automatically recalculates directional coastline bitmasks, elevation transitions, and slope graphics for edited tiles and their surrounding neighbors.
+  * Synchronizes terrain category profiles, elevation levels, and water/land flags.
+  * Handles province assignment when converting sea tiles to land.
+  * Added additional visual terrain options such as Sea and Swamp (Tin).
 
 ## Screens
 
