@@ -231,215 +231,215 @@
               <DataTemplate>
                 <DataGrid x:Name="CitiesRawDataGrid" ItemsSource="{Binding RowItem}" CanUserAddRows="False" AutoGenerateColumns="False">
                   <DataGrid.Columns>
-                    <DataGridTextColumn Header="0" Binding="{Binding [0]}" />
-                    <DataGridTextColumn Header="1" Binding="{Binding [1]}" />
-                    <!--<DataGridTextColumn Header="2" Binding="{Binding [2]}" />-->
-                    <!--<DataGridTextColumn Header="3" Binding="{Binding [3]}" />-->
-                    <DataGridTextColumn Header="4" Binding="{Binding [4]}" />
-                    <DataGridTextColumn Header="5" Binding="{Binding [5]}" />
-                    <DataGridTextColumn Header="6" Binding="{Binding [6]}" />
-                    <DataGridTextColumn Header="7" Binding="{Binding [7]}" />
-                    <DataGridTextColumn Header="8" Binding="{Binding [8]}" />
-                    <DataGridTextColumn Header="9" Binding="{Binding [9]}" />
-                    <DataGridTextColumn Header="10" Binding="{Binding [10]}" />
-                    <DataGridTextColumn Header="11" Binding="{Binding [11]}" />
-                    <DataGridTextColumn Header="12" Binding="{Binding [12]}" />
-                    <DataGridTextColumn Header="13" Binding="{Binding [13]}" />
-                    <DataGridTextColumn Header="14" Binding="{Binding [14]}" />
-                    <DataGridTextColumn Header="15" Binding="{Binding [15]}" />
-                    <DataGridTextColumn Header="16" Binding="{Binding [16]}" />
-                    <DataGridTextColumn Header="17" Binding="{Binding [17]}" />
-                    <DataGridTextColumn Header="18" Binding="{Binding [18]}" />
-                    <DataGridTextColumn Header="19" Binding="{Binding [19]}" />
-                    <DataGridTextColumn Header="20" Binding="{Binding [20]}" />
-                    <DataGridTextColumn Header="21" Binding="{Binding [21]}" />
-                    <DataGridTextColumn Header="22" Binding="{Binding [22]}" />
-                    <DataGridTextColumn Header="23" Binding="{Binding [23]}" />
-                    <DataGridTextColumn Header="24" Binding="{Binding [24]}" />
-                    <DataGridTextColumn Header="25" Binding="{Binding [25]}" />
-                    <DataGridTextColumn Header="26" Binding="{Binding [26]}" />
-                    <DataGridTextColumn Header="27" Binding="{Binding [27]}" />
-                    <DataGridTextColumn Header="28" Binding="{Binding [28]}" />
-                    <DataGridTextColumn Header="29" Binding="{Binding [29]}" />
-                    <DataGridTextColumn Header="30" Binding="{Binding [30]}" />
-                    <DataGridTextColumn Header="31" Binding="{Binding [31]}" />
-                    <DataGridTextColumn Header="32" Binding="{Binding [32]}" />
-                    <DataGridTextColumn Header="33" Binding="{Binding [33]}" />
-                    <DataGridTextColumn Header="34" Binding="{Binding [34]}" />
-                    <DataGridTextColumn Header="35" Binding="{Binding [35]}" />
-                    <DataGridTextColumn Header="36" Binding="{Binding [36]}" />
-                    <DataGridTextColumn Header="37" Binding="{Binding [37]}" />
-                    <DataGridTextColumn Header="38" Binding="{Binding [38]}" />
-                    <DataGridTextColumn Header="39" Binding="{Binding [39]}" />
-                    <DataGridTextColumn Header="40" Binding="{Binding [40]}" />
-                    <DataGridTextColumn Header="41" Binding="{Binding [41]}" />
-                    <DataGridTextColumn Header="42" Binding="{Binding [42]}" />
-                    <DataGridTextColumn Header="43" Binding="{Binding [43]}" />
-                    <DataGridTextColumn Header="44" Binding="{Binding [44]}" />
-                    <DataGridTextColumn Header="45" Binding="{Binding [45]}" />
-                    <DataGridTextColumn Header="46" Binding="{Binding [46]}" />
-                    <DataGridTextColumn Header="47" Binding="{Binding [47]}" />
-                    <DataGridTextColumn Header="48" Binding="{Binding [48]}" />
-                    <DataGridTextColumn Header="49" Binding="{Binding [49]}" />
-                    <DataGridTextColumn Header="50" Binding="{Binding [50]}" />
-                    <DataGridTextColumn Header="51" Binding="{Binding [51]}" />
-                    <DataGridTextColumn Header="52" Binding="{Binding [52]}" />
-                    <DataGridTextColumn Header="53" Binding="{Binding [53]}" />
-                    <DataGridTextColumn Header="54" Binding="{Binding [54]}" />
-                    <DataGridTextColumn Header="55" Binding="{Binding [55]}" />
-                    <DataGridTextColumn Header="56" Binding="{Binding [56]}" />
-                    <DataGridTextColumn Header="57" Binding="{Binding [57]}" />
-                    <DataGridTextColumn Header="58" Binding="{Binding [58]}" />
-                    <DataGridTextColumn Header="59" Binding="{Binding [59]}" />
-                    <DataGridTextColumn Header="60" Binding="{Binding [60]}" />
-                    <DataGridTextColumn Header="61" Binding="{Binding [61]}" />
-                    <DataGridTextColumn Header="62" Binding="{Binding [62]}" />
-                    <DataGridTextColumn Header="63" Binding="{Binding [63]}" />
-                    <DataGridTextColumn Header="64" Binding="{Binding [64]}" />
-                    <DataGridTextColumn Header="65" Binding="{Binding [65]}" />
-                    <DataGridTextColumn Header="66" Binding="{Binding [66]}" />
-                    <DataGridTextColumn Header="67" Binding="{Binding [67]}" />
-                    <DataGridTextColumn Header="Pos1" Binding="{Binding [68]}" />
-                    <DataGridTextColumn Header="Pos2" Binding="{Binding [69]}" />
-                    <DataGridTextColumn Header="70" Binding="{Binding [70]}" />
-                    <DataGridTextColumn Header="71" Binding="{Binding [71]}" />
-                    <DataGridTextColumn Header="72" Binding="{Binding [72]}" />
-                    <DataGridTextColumn Header="73" Binding="{Binding [73]}" />
-                    <DataGridTextColumn Header="74" Binding="{Binding [74]}" />
-                    <DataGridTextColumn Header="75" Binding="{Binding [75]}" />
-                    <DataGridTextColumn Header="76" Binding="{Binding [76]}" />
-                    <DataGridTextColumn Header="77" Binding="{Binding [77]}" />
-                    <DataGridTextColumn Header="78" Binding="{Binding [78]}" />
-                    <DataGridTextColumn Header="79" Binding="{Binding [79]}" />
-                    <DataGridTextColumn Header="80" Binding="{Binding [80]}" />
-                    <DataGridTextColumn Header="81" Binding="{Binding [81]}" />
-                    <DataGridTextColumn Header="82" Binding="{Binding [82]}" />
-                    <DataGridTextColumn Header="83" Binding="{Binding [83]}" />
-                    <DataGridTextColumn Header="84" Binding="{Binding [84]}" />
-                    <DataGridTextColumn Header="85" Binding="{Binding [85]}" />
-                    <DataGridTextColumn Header="86" Binding="{Binding [86]}" />
-                    <DataGridTextColumn Header="87" Binding="{Binding [87]}" />
-                    <DataGridTextColumn Header="88" Binding="{Binding [88]}" />
-                    <DataGridTextColumn Header="89" Binding="{Binding [89]}" />
-                    <DataGridTextColumn Header="90" Binding="{Binding [90]}" />
-                    <DataGridTextColumn Header="91" Binding="{Binding [91]}" />
-                    <DataGridTextColumn Header="92" Binding="{Binding [92]}" />
-                    <DataGridTextColumn Header="93" Binding="{Binding [93]}" />
-                    <DataGridTextColumn Header="94" Binding="{Binding [94]}" />
-                    <DataGridTextColumn Header="95" Binding="{Binding [95]}" />
-                    <DataGridTextColumn Header="96" Binding="{Binding [96]}" />
-                    <DataGridTextColumn Header="97" Binding="{Binding [97]}" />
-                    <DataGridTextColumn Header="98" Binding="{Binding [98]}" />
-                    <DataGridTextColumn Header="99" Binding="{Binding [99]}" />
-                    <DataGridTextColumn Header="100" Binding="{Binding [100]}" />
-                    <DataGridTextColumn Header="101" Binding="{Binding [101]}" />
-                    <DataGridTextColumn Header="102" Binding="{Binding [102]}" />
-                    <DataGridTextColumn Header="103" Binding="{Binding [103]}" />
-                    <DataGridTextColumn Header="104" Binding="{Binding [104]}" />
-                    <DataGridTextColumn Header="105" Binding="{Binding [105]}" />
-                    <DataGridTextColumn Header="106" Binding="{Binding [106]}" />
-                    <DataGridTextColumn Header="107" Binding="{Binding [107]}" />
-                    <DataGridTextColumn Header="108" Binding="{Binding [108]}" />
-                    <DataGridTextColumn Header="109" Binding="{Binding [109]}" />
-                    <DataGridTextColumn Header="110" Binding="{Binding [110]}" />
-                    <DataGridTextColumn Header="111" Binding="{Binding [111]}" />
-                    <DataGridTextColumn Header="112" Binding="{Binding [112]}" />
-                    <DataGridTextColumn Header="113" Binding="{Binding [113]}" />
-                    <DataGridTextColumn Header="114" Binding="{Binding [114]}" />
-                    <DataGridTextColumn Header="115" Binding="{Binding [115]}" />
-                    <DataGridTextColumn Header="116" Binding="{Binding [116]}" />
-                    <DataGridTextColumn Header="117" Binding="{Binding [117]}" />
-                    <DataGridTextColumn Header="118" Binding="{Binding [118]}" />
-                    <DataGridTextColumn Header="119" Binding="{Binding [119]}" />
-                    <DataGridTextColumn Header="120" Binding="{Binding [120]}" />
-                    <DataGridTextColumn Header="121" Binding="{Binding [121]}" />
-                    <DataGridTextColumn Header="122" Binding="{Binding [122]}" />
-                    <DataGridTextColumn Header="123" Binding="{Binding [123]}" />
-                    <DataGridTextColumn Header="124" Binding="{Binding [124]}" />
-                    <DataGridTextColumn Header="125" Binding="{Binding [125]}" />
-                    <DataGridTextColumn Header="126" Binding="{Binding [126]}" />
-                    <DataGridTextColumn Header="127" Binding="{Binding [127]}" />
-                    <DataGridTextColumn Header="128" Binding="{Binding [128]}" />
-                    <DataGridTextColumn Header="129" Binding="{Binding [129]}" />
-                    <DataGridTextColumn Header="130" Binding="{Binding [130]}" />
-                    <DataGridTextColumn Header="131" Binding="{Binding [131]}" />
-                    <DataGridTextColumn Header="132" Binding="{Binding [132]}" />
-                    <DataGridTextColumn Header="133" Binding="{Binding [133]}" />
-                    <DataGridTextColumn Header="134" Binding="{Binding [134]}" />
-                    <DataGridTextColumn Header="135" Binding="{Binding [135]}" />
-                    <DataGridTextColumn Header="136" Binding="{Binding [136]}" />
-                    <DataGridTextColumn Header="137" Binding="{Binding [137]}" />
-                    <DataGridTextColumn Header="138" Binding="{Binding [138]}" />
-                    <DataGridTextColumn Header="139" Binding="{Binding [139]}" />
-                    <DataGridTextColumn Header="140" Binding="{Binding [140]}" />
-                    <DataGridTextColumn Header="141" Binding="{Binding [141]}" />
-                    <DataGridTextColumn Header="142" Binding="{Binding [142]}" />
-                    <DataGridTextColumn Header="143" Binding="{Binding [143]}" />
-                    <DataGridTextColumn Header="144" Binding="{Binding [144]}" />
-                    <DataGridTextColumn Header="145" Binding="{Binding [145]}" />
-                    <DataGridTextColumn Header="146" Binding="{Binding [146]}" />
-                    <DataGridTextColumn Header="147" Binding="{Binding [147]}" />
-                    <DataGridTextColumn Header="148" Binding="{Binding [148]}" />
-                    <DataGridTextColumn Header="149" Binding="{Binding [149]}" />
-                    <DataGridTextColumn Header="150" Binding="{Binding [150]}" />
-                    <DataGridTextColumn Header="151" Binding="{Binding [151]}" />
-                    <DataGridTextColumn Header="152" Binding="{Binding [152]}" />
-                    <DataGridTextColumn Header="153" Binding="{Binding [153]}" />
-                    <DataGridTextColumn Header="154" Binding="{Binding [154]}" />
-                    <DataGridTextColumn Header="155" Binding="{Binding [155]}" />
-                    <DataGridTextColumn Header="156" Binding="{Binding [156]}" />
-                    <DataGridTextColumn Header="157" Binding="{Binding [157]}" />
-                    <DataGridTextColumn Header="158" Binding="{Binding [158]}" />
-                    <DataGridTextColumn Header="159" Binding="{Binding [159]}" />
-                    <DataGridTextColumn Header="160" Binding="{Binding [160]}" />
-                    <DataGridTextColumn Header="161" Binding="{Binding [161]}" />
-                    <DataGridTextColumn Header="162" Binding="{Binding [162]}" />
-                    <DataGridTextColumn Header="163" Binding="{Binding [163]}" />
-                    <DataGridTextColumn Header="164" Binding="{Binding [164]}" />
-                    <DataGridTextColumn Header="165" Binding="{Binding [165]}" />
-                    <DataGridTextColumn Header="166" Binding="{Binding [166]}" />
-                    <DataGridTextColumn Header="167" Binding="{Binding [167]}" />
-                    <DataGridTextColumn Header="168" Binding="{Binding [168]}" />
-                    <DataGridTextColumn Header="169" Binding="{Binding [169]}" />
-                    <DataGridTextColumn Header="170" Binding="{Binding [170]}" />
-                    <DataGridTextColumn Header="171" Binding="{Binding [171]}" />
-                    <DataGridTextColumn Header="172" Binding="{Binding [172]}" />
-                    <DataGridTextColumn Header="173" Binding="{Binding [173]}" />
-                    <DataGridTextColumn Header="174" Binding="{Binding [174]}" />
-                    <DataGridTextColumn Header="175" Binding="{Binding [175]}" />
-                    <DataGridTextColumn Header="176" Binding="{Binding [176]}" />
-                    <DataGridTextColumn Header="177" Binding="{Binding [177]}" />
-                    <DataGridTextColumn Header="178" Binding="{Binding [178]}" />
-                    <DataGridTextColumn Header="179" Binding="{Binding [179]}" />
-                    <DataGridTextColumn Header="180" Binding="{Binding [180]}" />
-                    <DataGridTextColumn Header="181" Binding="{Binding [181]}" />
-                    <DataGridTextColumn Header="182" Binding="{Binding [182]}" />
-                    <DataGridTextColumn Header="183" Binding="{Binding [183]}" />
-                    <DataGridTextColumn Header="184" Binding="{Binding [184]}" />
-                    <DataGridTextColumn Header="185" Binding="{Binding [185]}" />
-                    <DataGridTextColumn Header="186" Binding="{Binding [186]}" />
-                    <DataGridTextColumn Header="187" Binding="{Binding [187]}" />
-                    <DataGridTextColumn Header="188" Binding="{Binding [188]}" />
-                    <DataGridTextColumn Header="189" Binding="{Binding [189]}" />
-                    <DataGridTextColumn Header="190" Binding="{Binding [190]}" />
-                    <DataGridTextColumn Header="191" Binding="{Binding [191]}" />
-                    <DataGridTextColumn Header="192" Binding="{Binding [192]}" />
-                    <DataGridTextColumn Header="193" Binding="{Binding [193]}" />
-                    <DataGridTextColumn Header="194" Binding="{Binding [194]}" />
-                    <DataGridTextColumn Header="195" Binding="{Binding [195]}" />
-                    <DataGridTextColumn Header="196" Binding="{Binding [196]}" />
-                    <DataGridTextColumn Header="197" Binding="{Binding [197]}" />
-                    <DataGridTextColumn Header="198" Binding="{Binding [198]}" />
-                    <DataGridTextColumn Header="199" Binding="{Binding [199]}" />
-                    <DataGridTextColumn Header="200" Binding="{Binding [200]}" />
-                    <DataGridTextColumn Header="201" Binding="{Binding [201]}" />
-                    <DataGridTextColumn Header="202" Binding="{Binding [202]}" />
-                    <DataGridTextColumn Header="203" Binding="{Binding [203]}" />
-                    <DataGridTextColumn Header="204" Binding="{Binding [204]}" />
-                    <DataGridTextColumn Header="205" Binding="{Binding [205]}" />
-                    <DataGridTextColumn Header="206" Binding="{Binding [206]}" />
-                    <DataGridTextColumn Header="207" Binding="{Binding [207]}" />
-                    <DataGridTextColumn Header="208" Binding="{Binding [208]}" />
+                    <DataGridTextColumn Header="[0] Owner 1" Binding="{Binding [0]}" />
+                    <DataGridTextColumn Header="[1] Owner 2" Binding="{Binding [1]}" />
+                    <DataGridTextColumn Header="[2] Expanded" Binding="{Binding [2]}" />
+                    <DataGridTextColumn Header="[3] Fort Lvl" Binding="{Binding [3]}" />
+                    <DataGridTextColumn Header="[4] Tile Count" Binding="{Binding [4]}" />
+                    <DataGridTextColumn Header="[5] Reserved" Binding="{Binding [5]}" />
+                    <DataGridTextColumn Header="[6] Town Size" Binding="{Binding [6]}" />
+                    <DataGridTextColumn Header="[7] Port Status" Binding="{Binding [7]}" />
+                    <DataGridTextColumn Header="[8] Sugar" Binding="{Binding [8]}" />
+                    <DataGridTextColumn Header="[9] Grain" Binding="{Binding [9]}" />
+                    <DataGridTextColumn Header="[10] Slope" Binding="{Binding [10]}" />
+                    <DataGridTextColumn Header="[11] Forest" Binding="{Binding [11]}" />
+                    <DataGridTextColumn Header="[12] Wool" Binding="{Binding [12]}" />
+                    <DataGridTextColumn Header="[13] Swamp" Binding="{Binding [13]}" />
+                    <DataGridTextColumn Header="[14] Tin" Binding="{Binding [14]}" />
+                    <DataGridTextColumn Header="[15] Silver" Binding="{Binding [15]}" />
+                    <DataGridTextColumn Header="[16] Gold" Binding="{Binding [16]}" />
+                    <DataGridTextColumn Header="[17] Gems" Binding="{Binding [17]}" />
+                    <DataGridTextColumn Header="[18] Iron" Binding="{Binding [18]}" />
+                    <DataGridTextColumn Header="[19] Copper" Binding="{Binding [19]}" />
+                    <DataGridTextColumn Header="[20] Horses" Binding="{Binding [20]}" />
+                    <DataGridTextColumn Header="[21] Res 21" Binding="{Binding [21]}" />
+                    <DataGridTextColumn Header="[22] Spices" Binding="{Binding [22]}" />
+                    <DataGridTextColumn Header="[23] Tobacco" Binding="{Binding [23]}" />
+                    <DataGridTextColumn Header="[24] Cotton" Binding="{Binding [24]}" />
+                    <DataGridTextColumn Header="[25] Fur" Binding="{Binding [25]}" />
+                    <DataGridTextColumn Header="[26] Mine Sites" Binding="{Binding [26]}" />
+                    <DataGridTextColumn Header="[27] Res 27" Binding="{Binding [27]}" />
+                    <DataGridTextColumn Header="[28] Coal" Binding="{Binding [28]}" />
+                    <DataGridTextColumn Header="[29] Res 29" Binding="{Binding [29]}" />
+                    <DataGridTextColumn Header="[30] Quarry" Binding="{Binding [30]}" />
+                    <DataGridTextColumn Header="[31] Fiber" Binding="{Binding [31]}" />
+                    <DataGridTextColumn Header="[32] Res 32" Binding="{Binding [32]}" />
+                    <DataGridTextColumn Header="[33] Res 33" Binding="{Binding [33]}" />
+                    <DataGridTextColumn Header="[34] Res 34" Binding="{Binding [34]}" />
+                    <DataGridTextColumn Header="[35] Res 35" Binding="{Binding [35]}" />
+                    <DataGridTextColumn Header="[36] Pad" Binding="{Binding [36]}" />
+                    <DataGridTextColumn Header="[37] Pad" Binding="{Binding [37]}" />
+                    <DataGridTextColumn Header="[38] Pad" Binding="{Binding [38]}" />
+                    <DataGridTextColumn Header="[39] Pad" Binding="{Binding [39]}" />
+                    <DataGridTextColumn Header="[40] Pad" Binding="{Binding [40]}" />
+                    <DataGridTextColumn Header="[41] Pad" Binding="{Binding [41]}" />
+                    <DataGridTextColumn Header="[42] Pad" Binding="{Binding [42]}" />
+                    <DataGridTextColumn Header="[43] Pad" Binding="{Binding [43]}" />
+                    <DataGridTextColumn Header="[44] Pad" Binding="{Binding [44]}" />
+                    <DataGridTextColumn Header="[45] Pad" Binding="{Binding [45]}" />
+                    <DataGridTextColumn Header="[46] Pad" Binding="{Binding [46]}" />
+                    <DataGridTextColumn Header="[47] Unrest" Binding="{Binding [47]}" />
+                    <DataGridTextColumn Header="[48] Militia" Binding="{Binding [48]}" />
+                    <DataGridTextColumn Header="[49] Pad" Binding="{Binding [49]}" />
+                    <DataGridTextColumn Header="[50] Blockade" Binding="{Binding [50]}" />
+                    <DataGridTextColumn Header="[51] Defense" Binding="{Binding [51]}" />
+                    <DataGridTextColumn Header="[52] Threat" Binding="{Binding [52]}" />
+                    <DataGridTextColumn Header="[53] Roughness" Binding="{Binding [53]}" />
+                    <DataGridTextColumn Header="[54] Trade Post" Binding="{Binding [54]}" />
+                    <DataGridTextColumn Header="[55] Pad" Binding="{Binding [55]}" />
+                    <DataGridTextColumn Header="[56] Pad" Binding="{Binding [56]}" />
+                    <DataGridTextColumn Header="[57] Pad" Binding="{Binding [57]}" />
+                    <DataGridTextColumn Header="[58] Pad" Binding="{Binding [58]}" />
+                    <DataGridTextColumn Header="[59] Pad" Binding="{Binding [59]}" />
+                    <DataGridTextColumn Header="[60] Pad" Binding="{Binding [60]}" />
+                    <DataGridTextColumn Header="[61] Pad" Binding="{Binding [61]}" />
+                    <DataGridTextColumn Header="[62] Pad" Binding="{Binding [62]}" />
+                    <DataGridTextColumn Header="[63] Pad" Binding="{Binding [63]}" />
+                    <DataGridTextColumn Header="[64] Pad" Binding="{Binding [64]}" />
+                    <DataGridTextColumn Header="[65] Explored" Binding="{Binding [65]}" />
+                    <DataGridTextColumn Header="[66] Pad" Binding="{Binding [66]}" />
+                    <DataGridTextColumn Header="[67] Strait" Binding="{Binding [67]}" />
+                    <DataGridTextColumn Header="[68] Seat Pos (L)" Binding="{Binding [68]}" />
+                    <DataGridTextColumn Header="[69] Seat Pos (H)" Binding="{Binding [69]}" />
+                    <DataGridTextColumn Header="[70] Capitol (L)" Binding="{Binding [70]}" />
+                    <DataGridTextColumn Header="[71] Capitol (H)" Binding="{Binding [71]}" />
+                    <DataGridTextColumn Header="[72] Nbr 1 (L)" Binding="{Binding [72]}" />
+                    <DataGridTextColumn Header="[73] Nbr 1 (H)" Binding="{Binding [73]}" />
+                    <DataGridTextColumn Header="[74] Nbr 2 (L)" Binding="{Binding [74]}" />
+                    <DataGridTextColumn Header="[75] Nbr 2 (H)" Binding="{Binding [75]}" />
+                    <DataGridTextColumn Header="[76] Nbr 3 (L)" Binding="{Binding [76]}" />
+                    <DataGridTextColumn Header="[77] Nbr 3 (H)" Binding="{Binding [77]}" />
+                    <DataGridTextColumn Header="[78] Nbr 4 (L)" Binding="{Binding [78]}" />
+                    <DataGridTextColumn Header="[79] Nbr 4 (H)" Binding="{Binding [79]}" />
+                    <DataGridTextColumn Header="[80] Nbr 5 (L)" Binding="{Binding [80]}" />
+                    <DataGridTextColumn Header="[81] Nbr 5 (H)" Binding="{Binding [81]}" />
+                    <DataGridTextColumn Header="[82] Nbr 6 (L)" Binding="{Binding [82]}" />
+                    <DataGridTextColumn Header="[83] Nbr 6 (H)" Binding="{Binding [83]}" />
+                    <DataGridTextColumn Header="[84] Nbr 7 (L)" Binding="{Binding [84]}" />
+                    <DataGridTextColumn Header="[85] Nbr 7 (H)" Binding="{Binding [85]}" />
+                    <DataGridTextColumn Header="[86] Nbr 8 (L)" Binding="{Binding [86]}" />
+                    <DataGridTextColumn Header="[87] Nbr 8 (H)" Binding="{Binding [87]}" />
+                    <DataGridTextColumn Header="[88] Nbr 9 (L)" Binding="{Binding [88]}" />
+                    <DataGridTextColumn Header="[89] Nbr 9 (H)" Binding="{Binding [89]}" />
+                    <DataGridTextColumn Header="[90] Nbr 10 (L)" Binding="{Binding [90]}" />
+                    <DataGridTextColumn Header="[91] Nbr 10 (H)" Binding="{Binding [91]}" />
+                    <DataGridTextColumn Header="[92] Nbr 11 (L)" Binding="{Binding [92]}" />
+                    <DataGridTextColumn Header="[93] Nbr 11 (H)" Binding="{Binding [93]}" />
+                    <DataGridTextColumn Header="[94] Nbr 12 (L)" Binding="{Binding [94]}" />
+                    <DataGridTextColumn Header="[95] Nbr 12 (H)" Binding="{Binding [95]}" />
+                    <DataGridTextColumn Header="[96] Entry 1 (L)" Binding="{Binding [96]}" />
+                    <DataGridTextColumn Header="[97] Entry 1 (H)" Binding="{Binding [97]}" />
+                    <DataGridTextColumn Header="[98] Entry 2 (L)" Binding="{Binding [98]}" />
+                    <DataGridTextColumn Header="[99] Entry 2 (H)" Binding="{Binding [99]}" />
+                    <DataGridTextColumn Header="[100] Entry 3 (L)" Binding="{Binding [100]}" />
+                    <DataGridTextColumn Header="[101] Entry 3 (H)" Binding="{Binding [101]}" />
+                    <DataGridTextColumn Header="[102] Entry 4 (L)" Binding="{Binding [102]}" />
+                    <DataGridTextColumn Header="[103] Entry 4 (H)" Binding="{Binding [103]}" />
+                    <DataGridTextColumn Header="[104] Entry 5 (L)" Binding="{Binding [104]}" />
+                    <DataGridTextColumn Header="[105] Entry 5 (H)" Binding="{Binding [105]}" />
+                    <DataGridTextColumn Header="[106] Entry 6 (L)" Binding="{Binding [106]}" />
+                    <DataGridTextColumn Header="[107] Entry 6 (H)" Binding="{Binding [107]}" />
+                    <DataGridTextColumn Header="[108] Entry 7 (L)" Binding="{Binding [108]}" />
+                    <DataGridTextColumn Header="[109] Entry 7 (H)" Binding="{Binding [109]}" />
+                    <DataGridTextColumn Header="[110] Entry 8 (L)" Binding="{Binding [110]}" />
+                    <DataGridTextColumn Header="[111] Entry 8 (H)" Binding="{Binding [111]}" />
+                    <DataGridTextColumn Header="[112] Entry 9 (L)" Binding="{Binding [112]}" />
+                    <DataGridTextColumn Header="[113] Entry 9 (H)" Binding="{Binding [113]}" />
+                    <DataGridTextColumn Header="[114] Entry 10 (L)" Binding="{Binding [114]}" />
+                    <DataGridTextColumn Header="[115] Entry 10 (H)" Binding="{Binding [115]}" />
+                    <DataGridTextColumn Header="[116] Entry 11 (L)" Binding="{Binding [116]}" />
+                    <DataGridTextColumn Header="[117] Entry 11 (H)" Binding="{Binding [117]}" />
+                    <DataGridTextColumn Header="[118] Entry 12 (L)" Binding="{Binding [118]}" />
+                    <DataGridTextColumn Header="[119] Entry 12 (H)" Binding="{Binding [119]}" />
+                    <DataGridTextColumn Header="[120] Aux 1 (L)" Binding="{Binding [120]}" />
+                    <DataGridTextColumn Header="[121] Aux 1 (H)" Binding="{Binding [121]}" />
+                    <DataGridTextColumn Header="[122] Aux 2 (L)" Binding="{Binding [122]}" />
+                    <DataGridTextColumn Header="[123] Aux 2 (H)" Binding="{Binding [123]}" />
+                    <DataGridTextColumn Header="[124] Hex 1 (L)" Binding="{Binding [124]}" />
+                    <DataGridTextColumn Header="[125] Hex 1 (H)" Binding="{Binding [125]}" />
+                    <DataGridTextColumn Header="[126] Hex 2 (L)" Binding="{Binding [126]}" />
+                    <DataGridTextColumn Header="[127] Hex 2 (H)" Binding="{Binding [127]}" />
+                    <DataGridTextColumn Header="[128] Hex 3 (L)" Binding="{Binding [128]}" />
+                    <DataGridTextColumn Header="[129] Hex 3 (H)" Binding="{Binding [129]}" />
+                    <DataGridTextColumn Header="[130] Hex 4 (L)" Binding="{Binding [130]}" />
+                    <DataGridTextColumn Header="[131] Hex 4 (H)" Binding="{Binding [131]}" />
+                    <DataGridTextColumn Header="[132] Hex 5 (L)" Binding="{Binding [132]}" />
+                    <DataGridTextColumn Header="[133] Hex 5 (H)" Binding="{Binding [133]}" />
+                    <DataGridTextColumn Header="[134] Hex 6 (L)" Binding="{Binding [134]}" />
+                    <DataGridTextColumn Header="[135] Hex 6 (H)" Binding="{Binding [135]}" />
+                    <DataGridTextColumn Header="[136] Hex 7 (L)" Binding="{Binding [136]}" />
+                    <DataGridTextColumn Header="[137] Hex 7 (H)" Binding="{Binding [137]}" />
+                    <DataGridTextColumn Header="[138] Hex 8 (L)" Binding="{Binding [138]}" />
+                    <DataGridTextColumn Header="[139] Hex 8 (H)" Binding="{Binding [139]}" />
+                    <DataGridTextColumn Header="[140] Hex 9 (L)" Binding="{Binding [140]}" />
+                    <DataGridTextColumn Header="[141] Hex 9 (H)" Binding="{Binding [141]}" />
+                    <DataGridTextColumn Header="[142] Hex 10 (L)" Binding="{Binding [142]}" />
+                    <DataGridTextColumn Header="[143] Hex 10 (H)" Binding="{Binding [143]}" />
+                    <DataGridTextColumn Header="[144] Hex 11 (L)" Binding="{Binding [144]}" />
+                    <DataGridTextColumn Header="[145] Hex 11 (H)" Binding="{Binding [145]}" />
+                    <DataGridTextColumn Header="[146] Hex 12 (L)" Binding="{Binding [146]}" />
+                    <DataGridTextColumn Header="[147] Hex 12 (H)" Binding="{Binding [147]}" />
+                    <DataGridTextColumn Header="[148] Hex 13 (L)" Binding="{Binding [148]}" />
+                    <DataGridTextColumn Header="[149] Hex 13 (H)" Binding="{Binding [149]}" />
+                    <DataGridTextColumn Header="[150] Hex 14 (L)" Binding="{Binding [150]}" />
+                    <DataGridTextColumn Header="[151] Hex 14 (H)" Binding="{Binding [151]}" />
+                    <DataGridTextColumn Header="[152] Hex 15 (L)" Binding="{Binding [152]}" />
+                    <DataGridTextColumn Header="[153] Hex 15 (H)" Binding="{Binding [153]}" />
+                    <DataGridTextColumn Header="[154] Hex 16 (L)" Binding="{Binding [154]}" />
+                    <DataGridTextColumn Header="[155] Hex 16 (H)" Binding="{Binding [155]}" />
+                    <DataGridTextColumn Header="[156] Hex 17 (L)" Binding="{Binding [156]}" />
+                    <DataGridTextColumn Header="[157] Hex 17 (H)" Binding="{Binding [157]}" />
+                    <DataGridTextColumn Header="[158] Hex 18 (L)" Binding="{Binding [158]}" />
+                    <DataGridTextColumn Header="[159] Hex 18 (H)" Binding="{Binding [159]}" />
+                    <DataGridTextColumn Header="[160] Hex 19 (L)" Binding="{Binding [160]}" />
+                    <DataGridTextColumn Header="[161] Hex 19 (H)" Binding="{Binding [161]}" />
+                    <DataGridTextColumn Header="[162] Hex 20 (L)" Binding="{Binding [162]}" />
+                    <DataGridTextColumn Header="[163] Hex 20 (H)" Binding="{Binding [163]}" />
+                    <DataGridTextColumn Header="[164] Hex 21 (L)" Binding="{Binding [164]}" />
+                    <DataGridTextColumn Header="[165] Hex 21 (H)" Binding="{Binding [165]}" />
+                    <DataGridTextColumn Header="[166] Hex 22 (L)" Binding="{Binding [166]}" />
+                    <DataGridTextColumn Header="[167] Hex 22 (H)" Binding="{Binding [167]}" />
+                    <DataGridTextColumn Header="[168] Hex 23 (L)" Binding="{Binding [168]}" />
+                    <DataGridTextColumn Header="[169] Hex 23 (H)" Binding="{Binding [169]}" />
+                    <DataGridTextColumn Header="[170] Hex 24 (L)" Binding="{Binding [170]}" />
+                    <DataGridTextColumn Header="[171] Hex 24 (H)" Binding="{Binding [171]}" />
+                    <DataGridTextColumn Header="[172] Hex 25 (L)" Binding="{Binding [172]}" />
+                    <DataGridTextColumn Header="[173] Hex 25 (H)" Binding="{Binding [173]}" />
+                    <DataGridTextColumn Header="[174] Hex 26 (L)" Binding="{Binding [174]}" />
+                    <DataGridTextColumn Header="[175] Hex 26 (H)" Binding="{Binding [175]}" />
+                    <DataGridTextColumn Header="[176] Hex 27 (L)" Binding="{Binding [176]}" />
+                    <DataGridTextColumn Header="[177] Hex 27 (H)" Binding="{Binding [177]}" />
+                    <DataGridTextColumn Header="[178] Hex 28 (L)" Binding="{Binding [178]}" />
+                    <DataGridTextColumn Header="[179] Hex 28 (H)" Binding="{Binding [179]}" />
+                    <DataGridTextColumn Header="[180] Hex 29 (L)" Binding="{Binding [180]}" />
+                    <DataGridTextColumn Header="[181] Hex 29 (H)" Binding="{Binding [181]}" />
+                    <DataGridTextColumn Header="[182] Hex 30 (L)" Binding="{Binding [182]}" />
+                    <DataGridTextColumn Header="[183] Hex 30 (H)" Binding="{Binding [183]}" />
+                    <DataGridTextColumn Header="[184] Hex 31 (L)" Binding="{Binding [184]}" />
+                    <DataGridTextColumn Header="[185] Hex 31 (H)" Binding="{Binding [185]}" />
+                    <DataGridTextColumn Header="[186] Hex 32 (L)" Binding="{Binding [186]}" />
+                    <DataGridTextColumn Header="[187] Hex 32 (H)" Binding="{Binding [187]}" />
+                    <DataGridTextColumn Header="[188] Ptr 0" Binding="{Binding [188]}" />
+                    <DataGridTextColumn Header="[189] Ptr 1" Binding="{Binding [189]}" />
+                    <DataGridTextColumn Header="[190] Ptr 2" Binding="{Binding [190]}" />
+                    <DataGridTextColumn Header="[191] Ptr 3" Binding="{Binding [191]}" />
+                    <DataGridTextColumn Header="[192] Value 0" Binding="{Binding [192]}" />
+                    <DataGridTextColumn Header="[193] Value 1" Binding="{Binding [193]}" />
+                    <DataGridTextColumn Header="[194] Value 2" Binding="{Binding [194]}" />
+                    <DataGridTextColumn Header="[195] Value 3" Binding="{Binding [195]}" />
+                    <DataGridTextColumn Header="[196] Riches 0" Binding="{Binding [196]}" />
+                    <DataGridTextColumn Header="[197] Riches 1" Binding="{Binding [197]}" />
+                    <DataGridTextColumn Header="[198] Riches 2" Binding="{Binding [198]}" />
+                    <DataGridTextColumn Header="[199] Riches 3" Binding="{Binding [199]}" />
+                    <DataGridTextColumn Header="[200] Tier 0" Binding="{Binding [200]}" />
+                    <DataGridTextColumn Header="[201] Tier 1" Binding="{Binding [201]}" />
+                    <DataGridTextColumn Header="[202] Tier 2" Binding="{Binding [202]}" />
+                    <DataGridTextColumn Header="[203] Tier 3" Binding="{Binding [203]}" />
+                    <DataGridTextColumn Header="[204] Gov 0" Binding="{Binding [204]}" />
+                    <DataGridTextColumn Header="[205] Gov 1" Binding="{Binding [205]}" />
+                    <DataGridTextColumn Header="[206] Gov 2" Binding="{Binding [206]}" />
+                    <DataGridTextColumn Header="[207] Gov 3" Binding="{Binding [207]}" />
+                    <DataGridTextColumn Header="[208] Name Len" Binding="{Binding [208]}" />
                   </DataGrid.Columns>
                 </DataGrid>
               </DataTemplate>
