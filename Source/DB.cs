@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +11,48 @@ namespace Imperialism_2_SGEditor
     //public static int NotifyCounter = 0;
 
     //ALL CONST VALUES ARE COUNTED FROM ZERO (so 20th byte is 19 in const value for array use)
-    public const byte OWNER1 = 4;
-    public const byte OWNER2 = 5;
-    public const byte SEA = 255;
-    public const byte MAP_VISIBILITY = 31;
-    public const byte BUILDINGS = 29;//55 capitol
-    public const byte PROD_LEVEL = 16;//0-4 levels
-    public const byte RESOURCE_DISCOVERED_BY = 17;
-    public const byte LAND_TYPE_RES = 21;//resource that can be used
-    public const byte LAND_TYPE_GFX = 22;//visual only
-    public const byte PROVINCE_ID = 23;//255 is sea, other numbers are province id
+    public const byte TILE_STATE = 0;      // Tile / military state (0=normal, 2=active/disputed, 3=multiplayer active)
     public const byte TERRAIN_CAT = 1;     // Terrain Category (0=Plains, 1=Forest, 2=Hills, 3=Mountains, 4=Swamp, 5=Water, 6=Desert/Tundra, 7=Farmland)
-    public const byte ELEVATION = 2;       // Elevation (1=Mountain peak/high ridge, 0=flat/foothill)
-    public const byte TRANS_COAST = 12;    // Coastline direction bitmask (Byte 12-13)
-    public const byte TRANS_ELEVATION = 14;// Elevation / slope transition bitmask
+    public const byte ELEVATION_MASK = 2;  // Elevation / Slope mask (hex direction bitmask 0-63)
+    public const byte RIVER_DIR = 3;       // River exit direction bitmask
+    public const byte OWNER1 = 4;          // Sovereign Country (0-21) / Sea Zone
+    public const byte OWNER2 = 5;          // Controlling Country / Occupant
+    public const byte REGION_ID = 6;       // World Region / Zone ID (1-12, 255=Sea)
+    public const byte ROAD_DIR = 7;        // Road connections direction bitmask (0-63)
+    public const byte RAIL_DIR = 8;        // Rail connections direction bitmask (0-63)
+    public const byte RIVER_DELTA = 9;     // River branching / delta graphic index
+    public const byte CANAL_COAST = 10;    // Canal / Estuary / Water border transition
+    public const byte COAST_NORTH = 11;    // Coastline direction bitmask (North / NW / NE)
+    public const byte TRANS_COAST = 12;    // Coastline direction bitmask (South / SE / SW)
+    public const byte TRANS_SLOPE = 13;    // Hill / Mountain slope transition mask
+    public const byte TRANS_ELEVATION = 14;// Mountain peak / ridge transition mask
     public const byte TRANS_SPRITE = 15;   // Transition sprite index
+    public const byte PROD_LEVEL = 16;     // Development level (0-4)
+    public const byte RESOURCE_DISCOVERED_BY = 17; // Discovered By player bitmask (0-127)
+    public const byte PROSPECTED = 18;     // Prospected / Surveyed flag (0=No, 1=Yes)
+    public const byte YIELD_BONUS = 19;    // Resource yield multiplier / bonus level
+    public const byte MINERAL_SITE_ID = 20;// Mine / Mineral site table index (0-89, 255=None)
+    public const byte LAND_TYPE_RES = 21;  // Resource type ID (Wool, Timber, Tin, Copper, Coal, etc., 255=None)
+    public const byte LAND_TYPE_GFX = 22;  // Visual terrain graphic (Plains, Forest, Mountains, etc.)
+    public const byte PROVINCE_ID = 23;    // Province ID (0-151, 255=Sea)
     public const byte LAND_WATER_FLAG = 24;// 0=Land, 255=Sea
+    public const byte PORT_ZONE = 25;      // Port zone / naval access zone ID (255=None)
+    public const byte PORT_COUNTRY = 26;   // Country owning port trade link (255=None)
+    public const byte RESERVED_27 = 27;    // Reserved / padding (always 255)
+    public const byte INFRA_MASK = 28;     // Infrastructure bitmask (0x04=Port, 0x10=Rail, 0x20=Road)
+    public const byte BUILDINGS = 29;      // Building type (4/34/38/42/46=Town, 54=Minor Capitol, 55=Major Capitol, 62=Fort, 63=Port)
+    public const byte RESERVED_30 = 30;    // Reserved / unused (always 0)
+    public const byte MAP_VISIBILITY = 31; // Explored / fog-of-war bitmask for Great Powers
+    public const byte FORT_LEVEL_TILE = 32;// Fortification level (0=None, 2=Fort, 4=Fortress)
+    public const byte CITY_EXPANDED = 33;  // City expanded flag (0=No, 1=Yes)
+    public const byte GARRISON_SIZE = 34;  // Stationed garrison strength (0-4)
+    public const byte RESERVED_35 = 35;    // Reserved / unused (always 0)
+    public const byte RESERVED_36 = 36;    // Reserved / unused (always 0)
+    public const byte CIV_UNIT_REF_L = 37; // Civilian unit reference (Low byte)
+    public const byte CIV_UNIT_REF_H = 38; // Civilian unit reference (High byte)
+    public const byte ARMY_NAVY_REF = 39;  // Military unit / fleet reference on hex
+    public const byte SEA = 255;
+    public const byte ELEVATION = 2;       // Legacy alias for ELEVATION_MASK
 
     public const int DIR_NW = 0; // Top-Left
     public const int DIR_NE = 1; // Top-Right
@@ -40,7 +66,48 @@ namespace Imperialism_2_SGEditor
 
     public static Brush[] COUNTRY_COLORS = new Brush[6] { Brushes.Blue, Brushes.Red, Brushes.Cyan, Brushes.Orange, Brushes.SpringGreen, Brushes.Yellow };
     public static string[] COUNTRY_NAMES = new string[22] { "France", "England", "Sweden", "Holland", "Portugal", "Spain", "Ireland", "Scotland", "Denmark", "Germany", "Italy", "Switzerland", "The Aztecs", "The Incas", "The Mayas", "The Taino", "The Iroquois", "The Sioux", "The Kwakiutl", "The Cherokee", "The Huron", "The Pueblo" };
-    public static string[] HEADERS = new string[40] { "0", "1", "2", "3", "Owner1", "Owner2", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "Prod lvl", "Res discovered by", "18", "19", "20", "Type (res)", "Type (vis)", "Sea/ID", "24", "25", "26", "27", "28", "Buildings", "30", "Explored", "32", "33", "34", "35", "36", "37", "38", "39" };
+    public static string[] HEADERS = new string[40] {
+      "[0] State",
+      "[1] Terrain",
+      "[2] Elev Mask",
+      "[3] River Exit",
+      "[4] Owner 1",
+      "[5] Owner 2",
+      "[6] Region",
+      "[7] Road Dir",
+      "[8] Rail Dir",
+      "[9] River Delta",
+      "[10] Canal/Coast",
+      "[11] Coast N",
+      "[12] Coast S",
+      "[13] Slope Trans",
+      "[14] Peak Trans",
+      "[15] Trans Sprite",
+      "[16] Prod Lvl",
+      "[17] Disc By",
+      "[18] Surveyed",
+      "[19] Yield Bonus",
+      "[20] Mineral ID",
+      "[21] Type (res)",
+      "[22] Type (vis)",
+      "[23] Province ID",
+      "[24] Land/Sea",
+      "[25] Port Zone",
+      "[26] Port Country",
+      "[27] Reserved",
+      "[28] Infra Mask",
+      "[29] Building",
+      "[30] Reserved",
+      "[31] Explored",
+      "[32] Fort Lvl",
+      "[33] Expand City",
+      "[34] Garrison",
+      "[35] Reserved",
+      "[36] Reserved",
+      "[37] Civ Unit L",
+      "[38] Civ Unit H",
+      "[39] Army Ref"
+    };
 
     //CITIES
     public const byte FORT_LEVEL = 3;

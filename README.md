@@ -21,7 +21,7 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
   * Fort level, expansion, owner
 * Edit world map:
   * Owner, production, resources, and more
-* Each element has raw data in bytes so you can modify stuff on your own
+* Each element has raw data in bytes so you can modify stuff on your own (see [**Tile Byte Structure Reference**](TILE_STRUCTURE.md))
 
 ### Recent Fork Additions (Vibe Coded)
 
@@ -36,6 +36,9 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
   * Synchronizes terrain category profiles, elevation levels, and water/land flags.
   * Handles province assignment when converting sea tiles to land.
   * Added additional visual terrain options such as Sea and Swamp (Tin).
+* **Tile Byte Display Labels & Reverse-Engineered Documentation**:
+  * Updated the 40 raw data columns at the top of the screen with clear, descriptive headers (State, Terrain Category, Road/Rail masks, River paths, Coast/Elevation transitions, Mineral site IDs, Fort levels, etc.).
+  * Added complete technical documentation covering all 40 bytes in [**TILE_STRUCTURE.md**](TILE_STRUCTURE.md).
 
 ## Screens
 
