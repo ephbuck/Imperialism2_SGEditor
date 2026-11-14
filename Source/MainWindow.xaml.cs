@@ -28,6 +28,11 @@ namespace Imperialism_2_SGEditor
 
     private bool _isSelectingField = false;
 
+    private void MoveProvinceButton_Click(object sender, RoutedEventArgs e)
+    {
+      VM.MoveSelectedTileToProvince(ProvinceTargetComboBox.SelectedItem as City);
+    }
+
     private void MapFieldItem_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
       //Title = DB.NotifyCounter.ToString();
@@ -107,6 +112,7 @@ namespace Imperialism_2_SGEditor
         if (colIndex == DB.LAND_TYPE_GFX)
         {
           DB.UpdateTerrainAndTransitions(VM.SelectedMapField, VM.WorldFields);
+          VM.RefreshProvinceTargets();
           VM.RowItem.Clear();
           VM.RowItem.Add(VM.SelectedMapField);
         }
@@ -122,6 +128,7 @@ namespace Imperialism_2_SGEditor
       if (_isSelectingField || VM.SelectedMapField == null) return;
 
       DB.UpdateTerrainAndTransitions(VM.SelectedMapField, VM.WorldFields);
+      VM.RefreshProvinceTargets();
       VM.RowItem.Clear();
       VM.RowItem.Add(VM.SelectedMapField);
     }
@@ -136,6 +143,17 @@ namespace Imperialism_2_SGEditor
     }
 
     private bool _isAdjustingZoomOffset = false;
+
+    private void TransportCheckBox_Click(object sender, RoutedEventArgs e)
+    {
+      if (_isSelectingField || VM.SelectedMapField == null || VM.SelectedMapField.IsSea) return;
+      bool road = RoadCheckBox.IsChecked == true, rail = RailCheckBox.IsChecked == true;
+      if (sender == RoadCheckBox && road) rail = false;
+      if (sender == RailCheckBox && rail) road = false;
+      TransportEditor.Set(VM.SelectedMapField, VM.WorldFields, road, rail);
+      VM.RowItem.Clear();
+      VM.RowItem.Add(VM.SelectedMapField);
+    }
 
     public void ZoomTo(double newZoom, Point? centerPointInViewport = null)
     {

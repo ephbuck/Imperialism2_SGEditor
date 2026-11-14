@@ -18,10 +18,10 @@ namespace Imperialism_2_SGEditor
     public const byte OWNER1 = 4;          // Sovereign Country (0-21) / Sea Zone
     public const byte OWNER2 = 5;          // Controlling Country / Occupant
     public const byte REGION_ID = 6;       // World Region / Zone ID (1-12, 255=Sea)
-    public const byte ROAD_DIR = 7;        // Road connections direction bitmask (0-63)
-    public const byte RAIL_DIR = 8;        // Rail connections direction bitmask (0-63)
-    public const byte RIVER_DELTA = 9;     // River branching / delta graphic index
-    public const byte CANAL_COAST = 10;    // Canal / Estuary / Water border transition
+    public const byte ROAD_DIR = 9;        // Road connections direction bitmask (0-63)
+    public const byte RAIL_DIR = 7;        // Rail connections direction bitmask (0-63)
+    public const byte PLANNED_RAIL_DIR = 8; // Planned rail connections
+    public const byte PLANNED_ROAD_DIR = 10; // Planned road connections
     public const byte COAST_NORTH = 11;    // Coastline direction bitmask (North / NW / NE)
     public const byte TRANS_COAST = 12;    // Coastline direction bitmask (South / SE / SW)
     public const byte TRANS_SLOPE = 13;    // Hill / Mountain slope transition mask
@@ -74,10 +74,10 @@ namespace Imperialism_2_SGEditor
       "[4] Owner 1",
       "[5] Owner 2",
       "[6] Region",
-      "[7] Road Dir",
-      "[8] Rail Dir",
-      "[9] River Delta",
-      "[10] Canal/Coast",
+      "[7] Rail Dir",
+      "[8] Planned Rail",
+      "[9] Road Dir",
+      "[10] Planned Road",
       "[11] Coast N",
       "[12] Coast S",
       "[13] Slope Trans",
@@ -452,30 +452,12 @@ namespace Imperialism_2_SGEditor
       }
     }
 
-    private static void EnsureLandProvince(MapField field, MapField[] worldFields)
-    {
-      if (field.RawData[PROVINCE_ID] == SEA && worldFields != null)
-      {
-        short foundProv = SEA;
-        for (int d = 0; d < 6; d++)
-        {
-          int nIdx = GetNeighborIndex(field.Idx, d);
-          if (nIdx >= 0 && nIdx < worldFields.Length)
-          {
-            MapField n = worldFields[nIdx];
-            if (n != null && n.RawData != null && n.RawData[PROVINCE_ID] != SEA)
-            {
-              foundProv = n.RawData[PROVINCE_ID];
-              break;
-            }
-          }
-        }
-        if (foundProv == SEA) foundProv = 0;
-        field.RawData[PROVINCE_ID] = (byte)foundProv;
-        field.ProvinceId = foundProv;
-      }
-    }
-
+    private static void EnsureLandProvince(MapField field, MapField[] worldFields)
+    {
+      // New land remains unassigned until ProvinceEditor updates the province records.
+      if (field.RawData[PROVINCE_ID] == SEA) field.ProvinceId = SEA;
+    }
+
     public static byte RotateRight6(byte val)
     {
       return (byte)(((val >> 1) | ((val & 1) << 5)) & 0x3F);
@@ -591,6 +573,7 @@ namespace Imperialism_2_SGEditor
       if (centerField == null || centerField.RawData == null || worldFields == null)
         return;
 
+      bool wasWater = centerField.IsSea;
       byte gfxId = centerField.RawData[LAND_TYPE_GFX];
       SyncTerrainProfile(gfxId, centerField, worldFields);
 
@@ -604,9 +587,13 @@ namespace Imperialism_2_SGEditor
         int nIdx = GetNeighborIndex(centerField.Idx, dir);
         if (nIdx >= 0 && nIdx < worldFields.Length)
         {
-          RecalculateTileTransitions(worldFields[nIdx], worldFields);
+          var neighbor = worldFields[nIdx];
+          if (wasWater && !centerField.IsSea && neighbor != null && neighbor.IsSea)
+            neighbor.RawData[LAND_TYPE_RES] = 21; // Newly coastal water produces Fish.
+          RecalculateTileTransitions(neighbor, worldFields);
         }
       }
+      if (wasWater || centerField.IsSea) TransportEditor.Set(centerField, worldFields, false, false);
     }
   }
 }

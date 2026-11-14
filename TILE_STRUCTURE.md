@@ -40,10 +40,10 @@ This specification was reverse-engineered from:
 | **4** | `[4] Owner 1` | `uint8` | `0 – 99` | **Sovereign Nation / Sea Zone**: Country index (`0`–`21`) for Great Powers and Minor Nations. Numbers `22`–`99` represent Sea Zone IDs on ocean tiles. |
 | **5** | `[5] Owner 2` | `uint8` | `0 – 99` | **Controlling Nation / Occupant**: Current occupying or controlling nation. Differs from Owner 1 when a province is under military occupation. |
 | **6** | `[6] Region` | `uint8` | `1 – 12, 255` | **World Macro-Region / Zone**: Continent or geographic sector identifier; `255` for open ocean. |
-| **7** | `[7] Road Dir` | `uint8` | `0 – 63` | **Road Connections Bitmask**: 6-bit direction flags (`1, 2, 4, 8, 16, 32`) indicating adjacent hex edges connected by roads. |
-| **8** | `[8] Rail Dir` | `uint8` | `0 – 63` | **Rail Connections Bitmask**: 6-bit direction flags indicating adjacent hex edges connected by railroads. |
-| **9** | `[9] River Delta` | `uint8` | `0 – 60` | **River Branch / Delta Index**: Graphic index for river junctions, forks, and coastal deltas. |
-| **10** | `[10] Canal/Coast` | `uint8` | `0 – 52` | **Water Edge / Canal Transition**: Blending index for canals, estuaries, and inland water interfaces. |
+| **7** | `[7] Rail Dir` | `uint8` | `0 – 63` | **Completed Rail Connections**: Direction bits in engine order NE, E, SE, SW, W, NW (`1, 2, 4, 8, 16, 32`). |
+| **8** | `[8] Planned Rail` | `uint8` | `0 – 63` | **Planned / Ghost Rail Connections**: Preserved by completed-route checkbox edits. |
+| **9** | `[9] Road Dir` | `uint8` | `0 – 63` | **Completed Road Connections**: Same direction order as byte 7; connections must agree at both ends. |
+| **10** | `[10] Planned Road` | `uint8` | `0 – 63` | **Planned / Ghost Road Connections**: Preserved by completed-route checkbox edits. |
 | **11** | `[11] Coast N` | `uint8` | `0 – 207` | **Northern Coastline Transition**: Directional coastline bitmask for North, NW, and NE coast transitions. |
 | **12** | `[12] Coast S` | `uint8` | `0 – 183` | **Southern Coastline Transition**: Directional coastline bitmask for South, SW, and SE coast transitions. |
 | **13** | `[13] Slope Trans` | `uint8` | `0 – 255` | **Hill / Mountain Slope Mask**: Transition bitmask between elevated terrain (hills/mountains) and flat ground. |

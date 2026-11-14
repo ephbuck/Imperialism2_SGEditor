@@ -61,6 +61,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Country.cs" />
+    <Compile Include="ProvinceEditor.cs" />
+    <Compile Include="TransportEditor.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="TouchScrolling.cs" />

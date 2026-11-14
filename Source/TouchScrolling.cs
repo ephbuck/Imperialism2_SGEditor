@@ -1,135 +1,117 @@
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Imperialism_2_SGEditor
 {
   public class TouchScrolling : DependencyObject
   {
-    public static bool GetIsEnabled(DependencyObject obj)
+    public static bool GetIsEnabled(DependencyObject obj) { return (bool)obj.GetValue(IsEnabledProperty); }
+    public static void SetIsEnabled(DependencyObject obj, bool value) { obj.SetValue(IsEnabledProperty, value); }
+    public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached(
+        "IsEnabled", typeof(bool), typeof(TouchScrolling), new UIPropertyMetadata(false, IsEnabledChanged));
+    private static readonly DependencyProperty PanProperty = DependencyProperty.RegisterAttached(
+        "Pan", typeof(PanState), typeof(TouchScrolling));
+
+    private static void IsEnabledChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
     {
-      return (bool)obj.GetValue(IsEnabledProperty);
-    }
-
-    public static void SetIsEnabled(DependencyObject obj, bool value)
-    {
-      obj.SetValue(IsEnabledProperty, value);
-    }
-
-    public bool IsEnabled
-    {
-      get { return (bool)GetValue(IsEnabledProperty); }
-      set { SetValue(IsEnabledProperty, value); }
-    }
-
-    public static readonly DependencyProperty IsEnabledProperty =
-        DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(TouchScrolling), new UIPropertyMetadata(false, IsEnabledChanged));
-
-    static Dictionary<object, MouseCapture> _captures = new Dictionary<object, MouseCapture>();
-
-    static void IsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      var target = d as ScrollViewer;
-      if (target == null) return;
-
+      var viewer = obj as ScrollViewer;
+      if (viewer == null) return;
       if ((bool)e.NewValue)
       {
-        target.Loaded += Target_Loaded;
+        viewer.PreviewMouseDown += MouseDown;
+        viewer.PreviewMouseMove += MouseMove;
+        viewer.PreviewMouseUp += MouseUp;
+        viewer.LostMouseCapture += LostCapture;
+        viewer.Unloaded += Unloaded;
       }
       else
       {
-        Target_Unloaded(target, new RoutedEventArgs());
+        EndPan(viewer);
+        viewer.PreviewMouseDown -= MouseDown;
+        viewer.PreviewMouseMove -= MouseMove;
+        viewer.PreviewMouseUp -= MouseUp;
+        viewer.LostMouseCapture -= LostCapture;
+        viewer.Unloaded -= Unloaded;
       }
     }
 
-    static void Target_Unloaded(object sender, RoutedEventArgs e)
+    private static void MouseDown(object sender, MouseButtonEventArgs e)
     {
-      System.Diagnostics.Debug.WriteLine("Target Unloaded");
-
-      var target = sender as ScrollViewer;
-      if (target == null) return;
-
-      _captures.Remove(sender);
-
-      //target.Loaded -= Target_Loaded;
-      target.Unloaded -= Target_Unloaded;
-      target.PreviewMouseRightButtonDown -= Target_PreviewMouseRightButtonDown;
-      target.PreviewMouseMove -= Target_PreviewMouseMove;
-
-      target.PreviewMouseRightButtonUp -= Target_PreviewMouseRightButtonUp;
-    }
-
-    static void Target_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-    {
-      var target = sender as ScrollViewer;
-      if (target == null) return;
-
-      _captures[sender] = new MouseCapture
+      var viewer = (ScrollViewer)sender;
+      if (e.ChangedButton != MouseButton.Left && e.ChangedButton != MouseButton.Right) return;
+      if (viewer.GetValue(PanProperty) != null) return;
+      // Scrollbar thumbs and buttons retain their normal input handling.
+      var element = e.OriginalSource as DependencyObject;
+      while (element != null && element != viewer)
       {
-        VerticalOffset = target.VerticalOffset,
-        HorizontalOffset = target.HorizontalOffset,
-        Point = e.GetPosition(target),
-      };
-    }
-
-    static void Target_Loaded(object sender, RoutedEventArgs e)
-    {
-      var target = sender as ScrollViewer;
-      if (target == null) return;
-
-      System.Diagnostics.Debug.WriteLine("Target Loaded");
-
-      target.Unloaded += Target_Unloaded;
-      target.PreviewMouseRightButtonDown += Target_PreviewMouseRightButtonDown;
-      target.PreviewMouseMove += Target_PreviewMouseMove;
-
-      target.PreviewMouseRightButtonUp += Target_PreviewMouseRightButtonUp;
-    }
-
-    static void Target_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
-    {
-      var target = sender as ScrollViewer;
-      if (target == null) return;
-
-      target.ReleaseMouseCapture();
-    }
-
-    static void Target_PreviewMouseMove(object sender, MouseEventArgs e)
-    {
-      if (!_captures.ContainsKey(sender)) return;
-
-      if (e.RightButton != MouseButtonState.Pressed)
-      {
-        _captures.Remove(sender);
-        return;
+        if (element is ScrollBar || element is ButtonBase) return;
+        var content = element as FrameworkContentElement;
+        element = content != null ? content.Parent : VisualTreeHelper.GetParent(element);
       }
-
-      var target = sender as ScrollViewer;
-      if (target == null) return;
-
-      var capture = _captures[sender];
-
-      var point = e.GetPosition(target);
-
-      var dy = point.Y - capture.Point.Y;
-      var dx = point.X - capture.Point.X;
-
-      if (Math.Abs(dy) > 5 || Math.Abs(dx) > 5)
-      {
-        target.CaptureMouse();
-      }
-
-      target.ScrollToVerticalOffset(capture.VerticalOffset - dy);
-      target.ScrollToHorizontalOffset(capture.HorizontalOffset - dx);
+      viewer.SetValue(PanProperty, new PanState {
+        Button = e.ChangedButton, Start = e.GetPosition(viewer),
+        Horizontal = viewer.HorizontalOffset, Vertical = viewer.VerticalOffset,
+        PreviousCursor = viewer.Cursor
+      });
+      // A press without dragging must still allow normal tile selection.
     }
 
-    internal class MouseCapture
+    private static void MouseMove(object sender, MouseEventArgs e)
     {
-      public double VerticalOffset { get; set; }
-      public double HorizontalOffset { get; set; }
-      public Point Point { get; set; }
+      var viewer = (ScrollViewer)sender;
+      var state = viewer.GetValue(PanProperty) as PanState;
+      if (state == null) return;
+      var pressed = state.Button == MouseButton.Left ? e.LeftButton : e.RightButton;
+      if (pressed != MouseButtonState.Pressed) { EndPan(viewer); return; }
+      Point position = e.GetPosition(viewer);
+      double dx = position.X - state.Start.X, dy = position.Y - state.Start.Y;
+      if (!state.Dragging)
+      {
+        if (Math.Abs(dx) < SystemParameters.MinimumHorizontalDragDistance &&
+            Math.Abs(dy) < SystemParameters.MinimumVerticalDragDistance) return;
+        if (!viewer.CaptureMouse()) { EndPan(viewer); return; }
+        state.Dragging = true;
+        viewer.SetCurrentValue(FrameworkElement.CursorProperty, Cursors.Hand);
+      }
+      viewer.ScrollToHorizontalOffset(state.Horizontal - dx);
+      viewer.ScrollToVerticalOffset(state.Vertical - dy);
+      e.Handled = true;
+    }
+
+    private static void MouseUp(object sender, MouseButtonEventArgs e)
+    {
+      var viewer = (ScrollViewer)sender;
+      var state = viewer.GetValue(PanProperty) as PanState;
+      if (state == null || state.Button != e.ChangedButton) return;
+      // Consume drag releases before they reach selection or ownership painting.
+      if (state.Dragging) e.Handled = true;
+      EndPan(viewer);
+    }
+
+    private static void LostCapture(object sender, MouseEventArgs e)
+    {
+      var viewer = (ScrollViewer)sender;
+      if (!viewer.IsMouseCaptured) EndPan(viewer);
+    }
+    private static void Unloaded(object sender, RoutedEventArgs e) { EndPan((ScrollViewer)sender); }
+    private static void EndPan(ScrollViewer viewer)
+    {
+      var state = viewer.GetValue(PanProperty) as PanState;
+      viewer.ClearValue(PanProperty);
+      if (state != null && state.Dragging) viewer.SetCurrentValue(FrameworkElement.CursorProperty, state.PreviousCursor);
+      if (viewer.IsMouseCaptured) viewer.ReleaseMouseCapture();
+    }
+    private sealed class PanState
+    {
+      public MouseButton Button;
+      public Point Start;
+      public double Horizontal, Vertical;
+      public bool Dragging;
+      public Cursor PreviousCursor;
     }
   }
 }

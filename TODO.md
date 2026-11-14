@@ -5,6 +5,14 @@ verification used when closing them.
 
 ## Terrain rendering and save compatibility
 
+- [ ] Complete [road/rail in-game verification](Tests/TRANSPORT_CHECKLIST.md),
+  especially resource transport, movement, rivers, ports, borders, and planned routes.
+- [ ] Verify reclaimed land in-game, including coastline transitions, naval access,
+  and old sea-zone/port metadata. Also reconcile province records for land-to-water
+  conversion; that reverse operation has not received the new assignment workflow.
+- [ ] Complete [province transfer verification](Tests/PROVINCE_TRANSFER_CHECKLIST.md),
+  especially save round trips, movement entry tiles, resource accounting, port
+  access, and economic valuation caches. The first implementation is experimental.
 - [ ] Investigate coastal blending before treating shoreline edits as verified.
   Saved bytes 11–13 contain values the current transition routine does not fully
   reproduce. Confirm their encoding and interaction with province borders, rivers,

@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -37,7 +38,52 @@ namespace Imperialism_2_SGEditor
     public MapField SelectedMapField
     {
       get { return _selectedMapField; }
-      set { _selectedMapField = value; NotifyPropertyChanged("SelectedMapField"); }
+      set { _selectedMapField = value; NotifyPropertyChanged("SelectedMapField"); NotifyPropertyChanged("ProvinceTargets"); }
+    }
+
+    public List<City> ProvinceTargets
+    {
+      get
+      {
+        if (SelectedMapField == null || WorldFields == null || Cities == null || SelectedMapField.IsSea) return new List<City>();
+        var ids = new HashSet<byte>();
+        for (int d = 0; d < 6; d++)
+        {
+          int i = DB.GetNeighborIndex(SelectedMapField.Idx, d);
+          if (i >= 0 && i < WorldFields.Length && WorldFields[i] != null && !WorldFields[i].IsSea)
+            ids.Add(WorldFields[i].RawData[DB.PROVINCE_ID]);
+        }
+        return Cities.Where(c => ids.Contains((byte)c.ProvinceId) && c.ProvinceId != SelectedMapField.RawData[DB.PROVINCE_ID]).ToList();
+      }
+    }
+
+    public void MoveSelectedTileToProvince(City destination)
+    {
+      try
+      {
+        ProvinceEditor.Move(SelectedMapField, destination, WorldFields, Cities);
+        RowItem.Clear();
+        RowItem.Add(SelectedMapField);
+        NotifyPropertyChanged("WorldFields");
+        NotifyPropertyChanged("ProvinceTargets");
+        Status = "Tile moved to " + destination.Name + ". Save and verify in-game.";
+        StatusColor = Brushes.DarkGreen;
+      }
+      catch (InvalidOperationException ex)
+      {
+        Status = ex.Message;
+        StatusColor = Brushes.Tomato;
+      }
+    }
+
+    public void RefreshProvinceTargets()
+    {
+      NotifyPropertyChanged("ProvinceTargets");
+      if (SelectedMapField != null && !SelectedMapField.IsSea && SelectedMapField.RawData[DB.PROVINCE_ID] == DB.SEA)
+      {
+        Status = "New land: choose a neighboring province and click Move selected tile before saving.";
+        StatusColor = Brushes.DarkOrange;
+      }
     }
 
     private string _img;
@@ -232,6 +278,12 @@ namespace Imperialism_2_SGEditor
 
     private void SaveSavedGame()
     {
+      if (WorldFields != null && WorldFields.Any(t => t != null && !t.IsSea && t.RawData[DB.PROVINCE_ID] == DB.SEA))
+      {
+        Status = "Assign all new land tiles to a province before saving.";
+        StatusColor = Brushes.Tomato;
+        return;
+      }
       if (string.IsNullOrEmpty(fileNameAdnPath) == false)
       {
         long idx = mapFieldsStartIdx;
@@ -248,9 +300,16 @@ namespace Imperialism_2_SGEditor
           idx += city.RawData.Length;
         }
 
-        ByteArrayToFile(fileNameAdnPath, RawData);
+        if (!ByteArrayToFile(fileNameAdnPath, RawData))
+        {
+          Status = "Save failed.";
+          StatusColor = Brushes.Tomato;
+          return;
+        }
         Status = "Save successful";
         StatusColor = Brushes.DarkGreen;
+        try { TransportEditor.SaveSelections(fileNameAdnPath, RawData, WorldFields); }
+        catch (Exception ex) { Status = "Game saved; transport selections could not be saved: " + ex.Message; StatusColor = Brushes.DarkOrange; }
       }
       else SetErrorStatus();
     }
@@ -259,6 +318,12 @@ namespace Imperialism_2_SGEditor
     {
       Status = "Open saved game file first!";
       StatusColor = Brushes.Tomato;
+    }
+
+    private void LoadTransportSelections()
+    {
+      try { TransportEditor.LoadSelections(fileNameAdnPath, RawData, WorldFields); }
+      catch (Exception ex) { Status = "Game loaded; transport selections could not be loaded: " + ex.Message; StatusColor = Brushes.DarkOrange; }
     }
 
     public void LoadSlot0()
@@ -273,6 +338,7 @@ namespace Imperialism_2_SGEditor
       LoadCities();
       StatusColor = Brushes.DarkGreen;
       Status = "Load successful";
+      LoadTransportSelections();
       //ByteArrayToFile(fileNameAdnPath, RawData);
     }
 
@@ -295,6 +361,7 @@ namespace Imperialism_2_SGEditor
           LoadCities();
           StatusColor = Brushes.DarkGreen;
           Status = "Load successful";
+          LoadTransportSelections();
           //ByteArrayToFile(fileNameAdnPath, RawData);
         }
         else { Status = "Invalid file header! Edit at your own risk!"; StatusColor = Brushes.DarkRed; }

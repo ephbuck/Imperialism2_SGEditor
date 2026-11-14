@@ -45,6 +45,25 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
 
 ## Development notes
 
+The **Road** and **Rail** checkboxes connect the selected land tile to adjacent
+transport-enabled tiles automatically. Two rail-enabled tiles connect by rail;
+mixed tiles connect by road. Road and Rail are mutually exclusive: checking one
+unchecks the other. Unchecking updates both ends. Routes are drawn on the map.
+Keep the `.imp.sgeditor.xml` companion file with the save to retain isolated
+checkbox selections. See [transport verification](Tests/TRANSPORT_CHECKLIST.md)
+for persistence details and outstanding in-game checks.
+
+To transfer an ordinary border tile, select it, choose a neighboring province
+under **Move to province (experimental)**, and click **Move selected tile**.
+Transfers can cross country borders and preserve connected provinces. The moved
+tile adopts the destination province's two ownership values.
+After changing water to land, use the same control to assign the new land to a
+neighboring province. New land remains unassigned until that step; saving is
+blocked while any land tile still needs a province.
+Test on a copy of the save; see the
+[province transfer test checklist](Tests/PROVINCE_TRANSFER_CHECKLIST.md) for
+completed checks and required in-game validation.
+
 See [CHANGELOG.md](CHANGELOG.md) for recent changes and [TODO.md](TODO.md) for
 unresolved findings and follow-up work.
 
@@ -55,6 +74,7 @@ repository root with Windows PowerShell:
 powershell.exe -NoProfile -STA -File Tests\TerrainConnections.ps1
 powershell.exe -NoProfile -STA -File Tests\GrainTransitions.ps1
 powershell.exe -NoProfile -STA -File Tests\BuildingOverlays.ps1
+powershell.exe -NoProfile -STA -File Tests\TransportConnections.ps1
 ```
 
 `GrainTransitions.ps1` also accepts `-SavePath` for a read-only comparison against

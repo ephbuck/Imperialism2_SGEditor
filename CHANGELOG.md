@@ -2,6 +2,28 @@
 
 ## 2026-11-14
 
+- Road and Rail selections are now mutually exclusive. Checking either deselects
+  the other and recalculates both ends of adjacent connections.
+- Added left-button drag panning while retaining right-button dragging and normal
+  click selection. Drag releases do not select tiles or paint ownership; scrollbars
+  keep their standard behavior and mouse capture/cursor reset after dragging.
+- Added Road/Rail checkboxes, automatic reciprocal neighbor connections, route
+  overlays, and companion-file persistence for isolated/mixed checkbox selections.
+  Corrected completed/planned transport byte labels and added transport regression checks.
+  The properties panel now scrolls so its controls remain reachable.
+- Added a selected-tile development dropdown (0–4) after Production and before the
+  province/owner controls, synchronized with the raw development byte.
+- Ocean-to-land edits now assign Fish to adjacent water tiles and refresh their
+  resource icons. Existing land and nonadjacent water keep their resources.
+- Converted water tiles now display as unassigned land and can be assigned to a
+  neighboring province through the transfer control. Province membership, resource
+  counts, and ownership update together; saving is blocked until new land is assigned.
+- Added small province-name labels beneath town and capital icons, with full-name
+  tooltips and zoom scaling. Labels extend past the tile so names stay readable.
+- Added experimental transfer of ordinary border tiles to adjacent provinces of
+  either country, with destination ownership, connectivity/capacity checks, province membership and
+  resource tally updates, reciprocal adjacency/entry tables, and border refresh.
+  See `Tests/PROVINCE_TRANSFER_CHECKLIST.md` for remaining compatibility checks.
 - Added zoomable building overlays for towns, capitals, forts, and ports, with
   building-name tooltips and live refresh after tile edits. Unknown building codes
   receive a generic building marker. WPF binding checks cover 12 building codes

@@ -77,6 +77,17 @@
         </DataTrigger>
       </Style.Triggers>
     </Style>
+    <Style x:Key="ProvinceNameLabelStyle" TargetType="Border">
+      <Setter Property="Visibility" Value="Collapsed" />
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding BuildingKind}" Value="Town">
+          <Setter Property="Visibility" Value="Visible" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding BuildingKind}" Value="Capital">
+          <Setter Property="Visibility" Value="Visible" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
   </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -152,7 +163,8 @@
         <Grid Background="#FFE5E5E5">
           <DockPanel LastChildFill="True">
             <DataGrid ItemsSource="{Binding RowItem}" DockPanel.Dock="Top" Grid.ColumnSpan="10" CellEditEnding="FieldDetailsDataGrid_CellEditEnding" CanUserAddRows="False" x:Name="FieldDetailsDataGrid" AutoGenerateColumns="False" />
-            <StackPanel DockPanel.Dock="Right">
+            <ScrollViewer DockPanel.Dock="Right" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MinWidth="180" MaxWidth="240">
+            <StackPanel>
               <TextBlock Text="Field properties" Margin="5" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
               <TextBlock Text="Province name:" Margin="5,5,5,0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
               <TextBlock Text="{Binding SelectedMapField.ProvinceName}" Margin="5" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -180,6 +192,29 @@
                   </DataTemplate>
                 </ComboBox.ItemTemplate>
               </ComboBox>
+              <TextBlock Text="Level of development:" Margin="5" FontWeight="Bold" HorizontalAlignment="Center" />
+              <ComboBox x:Name="DevelopmentLevelComboBox" Margin="5"
+                        SelectedItem="{Binding SelectedMapField.RawData[16], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionChanged="ResourceComboBox_SelectionChanged">
+                <sys:Byte>0</sys:Byte>
+                <sys:Byte>1</sys:Byte>
+                <sys:Byte>2</sys:Byte>
+                <sys:Byte>3</sys:Byte>
+                <sys:Byte>4</sys:Byte>
+              </ComboBox>
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <CheckBox x:Name="RoadCheckBox" Content="Road" Margin="0,0,12,0"
+                          IsChecked="{Binding SelectedMapField.HasRoad, Mode=OneWay}"
+                          IsEnabled="{Binding SelectedMapField.CanEditTransport, FallbackValue=False}"
+                          Click="TransportCheckBox_Click" />
+                <CheckBox x:Name="RailCheckBox" Content="Rail"
+                          IsChecked="{Binding SelectedMapField.HasRail, Mode=OneWay}"
+                          IsEnabled="{Binding SelectedMapField.CanEditTransport, FallbackValue=False}"
+                          Click="TransportCheckBox_Click" />
+              </StackPanel>
+              <TextBlock Text="Move to province (experimental):" Margin="5" FontWeight="Bold" TextWrapping="Wrap" />
+              <ComboBox x:Name="ProvinceTargetComboBox" ItemsSource="{Binding ProvinceTargets}" DisplayMemberPath="Name" Margin="5" />
+              <Button Content="Move selected tile" Margin="5" Click="MoveProvinceButton_Click" />
               <TextBlock Text="Owner player:" Margin="5" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
               <ComboBox x:Name="OwnerComboBox" ItemsSource="{Binding WorldCountries}" SelectedValuePath="Number" SelectedValue="{Binding SelectedMapField.Owner}" HorizontalAlignment="Center">
                 <ComboBox.ItemTemplate>
@@ -215,6 +250,7 @@
                 </ComboBox>
               </StackPanel>
             </StackPanel>
+            </ScrollViewer>
             <Border DockPanel.Dock="Bottom" Background="#FFEAEAEA" BorderBrush="#FFCCCCCC" BorderThickness="0,1,0,0" Padding="8,4">
               <Grid>
                 <Grid.ColumnDefinitions>
@@ -230,11 +266,23 @@
                 <Slider Grid.Column="2" x:Name="ZoomSlider" Width="130" Minimum="0.2" Maximum="4.0" SmallChange="0.05" LargeChange="0.25" Value="{Binding Zoom, Mode=TwoWay}" VerticalAlignment="Center" Margin="4,0" ValueChanged="ZoomSlider_ValueChanged" />
                 <Button Grid.Column="3" x:Name="ZoomInBtn" Content=" + " Width="26" Height="24" FontWeight="Bold" FontSize="14" ToolTip="Zoom In (Ctrl + Mouse Wheel Up)" Margin="4,0,8,0" Click="ZoomInBtn_Click" />
                 <Button Grid.Column="4" x:Name="ZoomResetBtn" Content="{Binding ZoomPercentage, StringFormat='{}{0}%'}" MinWidth="52" Height="24" ToolTip="Reset Zoom to 100%" Click="ZoomResetBtn_Click" FontWeight="SemiBold" />
-                <TextBlock Grid.Column="5" Text="Hold Ctrl + Mouse Wheel to zoom at cursor  |  Right-click + drag to pan" Foreground="#FF666666" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="11" />
+                <TextBlock Grid.Column="5" Text="Ctrl + Mouse Wheel to zoom  |  Click to select  |  Hold left or right button and drag to pan" Foreground="#FF666666" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="11" />
               </Grid>
             </Border>
             <ScrollViewer x:Name="MapScrollViewer" Background="Black" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" local:TouchScrolling.IsEnabled="True" PreviewMouseWheel="MapScrollViewer_PreviewMouseWheel">
               <ItemsControl ItemsSource="{Binding WorldFields}">
+                <ItemsControl.ItemContainerStyle>
+                  <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding BuildingKind}" Value="Town">
+                        <Setter Property="Panel.ZIndex" Value="1" />
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding BuildingKind}" Value="Capital">
+                        <Setter Property="Panel.ZIndex" Value="1" />
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </ItemsControl.ItemContainerStyle>
                 <ItemsControl.LayoutTransform>
                   <TransformGroup>
                     <ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}" />
@@ -250,14 +298,32 @@
                     <Border x:Name="MapFieldItem" Tag="{Binding}" Height="36" MouseLeftButtonUp="MapFieldItem_MouseLeftButtonUp" BorderBrush="White" BorderThickness="{Binding Border}" Width="{Binding Shift}">
                       <Grid>
                         <Image Source="{Binding Img}" Stretch="Fill" />
-                        <Image x:Name="BuildingOverlay" MaxWidth="22" Height="22" Margin="1" Stretch="Uniform"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                        <Viewbox Stretch="Fill" IsHitTestVisible="False">
+                          <Grid Width="36" Height="36">
+                            <Path Data="{Binding RoadGeometry}" Stroke="#FF382517" StrokeThickness="3.5" />
+                            <Path Data="{Binding RoadGeometry}" Stroke="#FFD6AD6B" StrokeThickness="2" />
+                            <Path Data="{Binding RailGeometry}" Stroke="#FFF1E9D5" StrokeThickness="3.5" />
+                            <Path Data="{Binding RailGeometry}" Stroke="#FF222A30" StrokeThickness="2" StrokeDashArray="2,1" />
+                          </Grid>
+                        </Viewbox>
+                        <Image x:Name="BuildingOverlay" MaxWidth="22" Height="22" Margin="1,2,1,0" Stretch="Uniform"
+                               HorizontalAlignment="Center" VerticalAlignment="Top"
                                Style="{StaticResource TileBuildingImageStyle}" ToolTip="{Binding BuildingDescription}" />
                         <Border Margin="1" BorderBrush="DeepPink" BorderThickness="3" Visibility="{Binding IsSelected, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Border Width="18" BorderThickness="0,1,0,0" BorderBrush="White" Visibility="{Binding TopLeftBorder}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <Border Width="18" BorderThickness="0,1,0,0" BorderBrush="White" Visibility="{Binding TopRightBorder}" HorizontalAlignment="Right" VerticalAlignment="Top" />
                         <Border Width="6" Height="6" Margin="2" Background="{Binding OwnerColor}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <Image Width="15" Height="12" Source="{Binding ImgResource}" Visibility="{Binding ResourceIconVis}" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                        <Canvas Width="0" HorizontalAlignment="Center">
+                        <Grid Width="176" Canvas.Left="-88" Canvas.Top="25">
+                        <Border x:Name="ProvinceNameLabel" Style="{StaticResource ProvinceNameLabelStyle}"
+                                MaxWidth="88" HorizontalAlignment="Center"
+                                Background="#D920201C" CornerRadius="2" Padding="2,0" ToolTip="{Binding ProvinceName}">
+                          <TextBlock Text="{Binding ProvinceName}" FontSize="8" Foreground="White"
+                                     TextAlignment="Center" TextTrimming="CharacterEllipsis" />
+                        </Border>
+                        </Grid>
+                        </Canvas>
                       </Grid>
                     </Border>
                   </DataTemplate>

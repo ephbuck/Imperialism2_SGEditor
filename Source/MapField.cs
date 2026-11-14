@@ -27,7 +27,7 @@ namespace Imperialism_2_SGEditor
     {
       get
       {
-        return RawData[DB.PROVINCE_ID] == DB.SEA;
+        return RawData[DB.TERRAIN_CAT] == 5;
       }
     }
 
@@ -69,7 +69,7 @@ namespace Imperialism_2_SGEditor
     public short ProvinceId
     {
       get { return _provinceId; }
-      set { _provinceId = value; NotifyPropertyChanged("Id"); }
+      set { _provinceId = value; NotifyPropertyChanged("ProvinceId"); }
     }
 
     private Visibility _resourceIconVis;
@@ -99,6 +99,29 @@ namespace Imperialism_2_SGEditor
           default: return "Building";
         }
       }
+    }
+
+    private bool? _hasRoad, _hasRail;
+    public bool HasRoad { get { return !IsSea && !HasRail && (_hasRoad ?? ((RawData[TransportEditor.RoadMask] & 63) != 0)); } }
+    public bool HasRail { get { return !IsSea && (_hasRail ?? ((RawData[TransportEditor.RailMask] & 63) != 0)); } }
+    public bool CanEditTransport { get { return !IsSea; } }
+    internal void SetTransportPresence(bool road, bool rail) { _hasRoad = road && !rail; _hasRail = rail; }
+
+    public Geometry RoadGeometry { get { return TransportGeometry(TransportEditor.RoadMask, HasRoad); } }
+    public Geometry RailGeometry { get { return TransportGeometry(TransportEditor.RailMask, HasRail); } }
+    private Geometry TransportGeometry(int offset, bool present)
+    {
+      var drawing = new GeometryGroup();
+      if (!IsSea)
+      {
+        Point[] ends = { new Point(27,0), new Point(36,18), new Point(27,36),
+                        new Point(9,36), new Point(0,18), new Point(9,0) };
+        for (int d = 0; d < 6; d++)
+          if ((RawData[offset] & (1 << d)) != 0) drawing.Children.Add(new LineGeometry(new Point(18,18), ends[d]));
+        if (present && drawing.Children.Count == 0) drawing.Children.Add(new EllipseGeometry(new Point(18,18),2,2));
+      }
+      drawing.Freeze();
+      return drawing;
     }
 
     public string BuildingDescription
@@ -134,8 +157,17 @@ namespace Imperialism_2_SGEditor
     {
       UpdateImg();
       UpdateOwner();
+      NotifyPropertyChanged("HasRoad");
+      NotifyPropertyChanged("HasRail");
+      NotifyPropertyChanged("CanEditTransport");
+      NotifyPropertyChanged("RoadGeometry");
+      NotifyPropertyChanged("RailGeometry");
       NotifyPropertyChanged("BuildingKind");
       NotifyPropertyChanged("BuildingDescription");
+      NotifyPropertyChanged("ProvinceName");
+      NotifyPropertyChanged("Border");
+      NotifyPropertyChanged("TopLeftBorder");
+      NotifyPropertyChanged("TopRightBorder");
       // Array element edits do not notify bindings such as the Production dropdown.
       NotifyPropertyChanged("RawData");
     }
