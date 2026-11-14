@@ -21,7 +21,7 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
   * Fort level, expansion, owner
 * Edit world map:
   * Owner, production, resources, and more
-* Each element has raw data in bytes so you can modify stuff on your own
+* Each element has raw data in bytes so you can modify stuff on your own (see [**Tile Byte Structure Reference**](TILE_STRUCTURE.md) and [**Province & City Byte Structure Reference**](PROVINCE_STRUCTURE.md))
 
 ### Recent Fork Additions (Vibe Coded)
 
@@ -36,6 +36,29 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
   * Synchronizes terrain category profiles, elevation levels, and water/land flags.
   * Handles province assignment when converting sea tiles to land.
   * Added additional visual terrain options such as Sea and Swamp (Tin).
+* **Tile Byte Display Labels & Reverse-Engineered Documentation**:
+  * Updated the 40 raw data columns at the top of the screen with clear, descriptive headers (State, Terrain Category, Road/Rail masks, River paths, Coast/Elevation transitions, Mineral site IDs, Fort levels, etc.).
+  * Added complete technical documentation covering all 40 bytes in [**TILE_STRUCTURE.md**](TILE_STRUCTURE.md).
+* **Province & City Raw Byte Descriptors & Technical Reference**:
+  * Upgraded all 209 raw data columns in the "Cities/Provinces" sub-grid with detailed descriptors (Sovereign Owners, Fortification, Expanded status, Hex Tile Count, Resource & Terrain Tallies, Militia, Unrest, Explored Fog-of-War masks, Seat Tile position, Neighbor Adjacency table, Border Entry Tiles, Hex list, and Economic valuation).
+  * Added comprehensive technical documentation covering all 208 bytes of the structure in [**PROVINCE_STRUCTURE.md**](PROVINCE_STRUCTURE.md).
+
+## Development notes
+
+See [CHANGELOG.md](CHANGELOG.md) for recent changes and [TODO.md](TODO.md) for
+unresolved findings and follow-up work.
+
+After building the Debug configuration, run the connection checks from the
+repository root with Windows PowerShell:
+
+```powershell
+powershell.exe -NoProfile -STA -File Tests\TerrainConnections.ps1
+powershell.exe -NoProfile -STA -File Tests\GrainTransitions.ps1
+powershell.exe -NoProfile -STA -File Tests\BuildingOverlays.ps1
+```
+
+`GrainTransitions.ps1` also accepts `-SavePath` for a read-only comparison against
+a reference save. Both scripts accept `-EditorPath` to test another build.
 
 ## Screens
 
