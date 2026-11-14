@@ -36,6 +36,8 @@ verification used when closing them.
 
 ## Completed — 2026-11-14
 
+- [x] Display buildings on map tiles with distinct town, capital, fort, and port
+  icons. Verified rendered vector icons and 12 building-code/binding cases.
 - [x] Notify tile data bindings after updates so Production follows terrain defaults.
 - [x] Remove plain Swamp from visual choices while retaining its rendering definition
   for existing saves.

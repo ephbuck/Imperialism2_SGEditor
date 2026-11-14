@@ -2,6 +2,10 @@
 
 ## 2026-11-14
 
+- Added zoomable building overlays for towns, capitals, forts, and ports, with
+  building-name tooltips and live refresh after tile edits. Unknown building codes
+  receive a generic building marker. WPF binding checks cover 12 building codes
+  and prevent fort-level bytes alone from marking empty tiles as buildings.
 - Fixed the Production dropdown remaining on the previous selection when changing
   a tile's visual type assigns a new default resource.
 - Removed the non-tin Swamp option from the visual dropdown. Existing plain swamp

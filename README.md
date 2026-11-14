@@ -54,6 +54,7 @@ repository root with Windows PowerShell:
 ```powershell
 powershell.exe -NoProfile -STA -File Tests\TerrainConnections.ps1
 powershell.exe -NoProfile -STA -File Tests\GrainTransitions.ps1
+powershell.exe -NoProfile -STA -File Tests\BuildingOverlays.ps1
 ```
 
 `GrainTransitions.ps1` also accepts `-SavePath` for a read-only comparison against

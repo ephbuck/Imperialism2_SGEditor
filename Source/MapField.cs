@@ -79,6 +79,39 @@ namespace Imperialism_2_SGEditor
       set { _resourceIconVis = value; NotifyPropertyChanged("ResourceIconVis"); }
     }
 
+    public string BuildingKind
+    {
+      get
+      {
+        switch (RawData[DB.BUILDINGS])
+        {
+          case 0:
+          case 255: return "None";
+          case 4:
+          case 34:
+          case 38:
+          case 42:
+          case 46: return "Town";
+          case 54:
+          case 55: return "Capital";
+          case 62: return "Fort";
+          case 63: return "Port";
+          default: return "Building";
+        }
+      }
+    }
+
+    public string BuildingDescription
+    {
+      get
+      {
+        if (RawData[DB.BUILDINGS] == 54) return "Minor nation capital";
+        if (RawData[DB.BUILDINGS] == 55) return "Great power capital";
+        if (BuildingKind == "Building") return "Building (type " + RawData[DB.BUILDINGS] + ")";
+        return BuildingKind;
+      }
+    }
+
     public Thickness Border { get; set; }
     public Visibility TopLeftBorder { get; set; }
     public Visibility TopRightBorder { get; set; }
@@ -101,6 +134,8 @@ namespace Imperialism_2_SGEditor
     {
       UpdateImg();
       UpdateOwner();
+      NotifyPropertyChanged("BuildingKind");
+      NotifyPropertyChanged("BuildingDescription");
       // Array element edits do not notify bindings such as the Production dropdown.
       NotifyPropertyChanged("RawData");
     }
