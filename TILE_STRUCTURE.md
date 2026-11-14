@@ -47,7 +47,7 @@ This specification was reverse-engineered from:
 | **11** | `[11] Coast N` | `uint8` | `0 – 207` | **Northern Coastline Transition**: Directional coastline bitmask for North, NW, and NE coast transitions. |
 | **12** | `[12] Coast S` | `uint8` | `0 – 183` | **Southern Coastline Transition**: Directional coastline bitmask for South, SW, and SE coast transitions. |
 | **13** | `[13] Slope Trans` | `uint8` | `0 – 255` | **Hill / Mountain Slope Mask**: Transition bitmask between elevated terrain (hills/mountains) and flat ground. |
-| **14** | `[14] Peak Trans` | `uint8` | `0 – 63` | **Mountain Peak Transition Mask**: Blending bitmask for high mountain ridges and alpine peaks. |
+| **14** | `[14] Peak Trans` | `uint8` | `0 – 63` | **Matching Terrain Transition Mask**: Connects adjacent matching terrain graphics, including grain fields and other farmland; also connects hill groups and mountain ridges. Each neighbor direction is rotated right by one bit within the six-bit mask. Farmland matches the visual type (byte 22), so grain does not connect to sugar cane or tobacco. |
 | **15** | `[15] Trans Sprite`| `uint8` | `0 – 63` | **Transition Sprite Variant**: Graphic sprite variation index for corner blending and shore tiles. |
 | **16** | `[16] Prod Lvl` | `uint8` | `0 – 4` | **Production / Development Level**: Infrastructure level of the tile's resource (`0` = undeveloped wild land, `1`–`4` = upgraded output levels). |
 | **17** | `[17] Disc By` | `uint8` | `0 – 127` | **Discovered By Player Bitmask**: Bitmask (`1 << playerID`) tracking which countries have prospected and discovered the mineral or resource on this tile. |

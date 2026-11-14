@@ -25,7 +25,7 @@ namespace Imperialism_2_SGEditor
     public const byte COAST_NORTH = 11;    // Coastline direction bitmask (North / NW / NE)
     public const byte TRANS_COAST = 12;    // Coastline direction bitmask (South / SE / SW)
     public const byte TRANS_SLOPE = 13;    // Hill / Mountain slope transition mask
-    public const byte TRANS_ELEVATION = 14;// Mountain peak / ridge transition mask
+    public const byte TRANS_ELEVATION = 14;// Matching terrain graphics / hill / mountain connection mask
     public const byte TRANS_SPRITE = 15;   // Transition sprite index
     public const byte PROD_LEVEL = 16;     // Development level (0-4)
     public const byte RESOURCE_DISCOVERED_BY = 17; // Discovered By player bitmask (0-127)
@@ -196,6 +196,12 @@ namespace Imperialism_2_SGEditor
       new Resource("Furry Tundra", "furs.jpg", 18)
     };
 
+    // Keep all terrain definitions for rendering existing saves; filter editor choices.
+    public static List<Resource> VisualLandTypes
+    {
+      get { return LandTypes.FindAll(type => type.Id != 10); }
+    }
+
     public static List<Resource> Resources = new List<Resource>()
     {
       new Resource("Wool", "rsheep.jpg", 0),
@@ -553,18 +559,26 @@ namespace Imperialism_2_SGEditor
       else // Flat Land (Plains, Forest, Swamp, Desert, Farm)
       {
         byte coastMask = 0;
+        byte sameTerrainMask = 0;
         for (int d = 0; d < 6; d++)
         {
           int nIdx = GetNeighborIndex(tileIdx, d);
           if (nIdx >= 0 && nIdx < worldFields.Length)
           {
             MapField n = worldFields[nIdx];
-            if (n != null && n.RawData != null && n.RawData[TERRAIN_CAT] == 5)
+            if (n != null && n.RawData != null)
             {
-              coastMask |= DIR_MASKS[d];
+              if (n.RawData[TERRAIN_CAT] == 5) coastMask |= DIR_MASKS[d];
+              // Flat terrain uses byte 14 for matching graphics, including grain fields.
+              byte visual = field.RawData[LAND_TYPE_GFX];
+              byte neighborVisual = n.RawData[LAND_TYPE_GFX];
+              bool sameTerrain = visual == neighborVisual ||
+                  ((visual == 12 || visual == 18) && (neighborVisual == 12 || neighborVisual == 18));
+              if (sameTerrain) sameTerrainMask |= DIR_MASKS[d];
             }
           }
         }
+        field.RawData[TRANS_ELEVATION] = RotateRight6(sameTerrainMask);
         field.RawData[TRANS_SPRITE] = 0;
         field.RawData[13] = RotateRight6(coastMask);
       }
@@ -580,12 +594,6 @@ namespace Imperialism_2_SGEditor
       byte gfxId = centerField.RawData[LAND_TYPE_GFX];
       SyncTerrainProfile(gfxId, centerField, worldFields);
 
-      // If center is flat land, clear its elevation transition:
-      byte centerCat = centerField.RawData[TERRAIN_CAT];
-      if (centerCat != 2 && centerCat != 3 && centerCat != 5)
-      {
-        centerField.RawData[TRANS_ELEVATION] = 0;
-      }
 
       // Recalculate transitions for the center tile:
       RecalculateTileTransitions(centerField, worldFields);

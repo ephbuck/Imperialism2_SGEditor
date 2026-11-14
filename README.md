@@ -43,6 +43,22 @@ Be patient. There is no loading indicator and map editor loads about 10 seconds 
   * Upgraded all 209 raw data columns in the "Cities/Provinces" sub-grid with detailed descriptors (Sovereign Owners, Fortification, Expanded status, Hex Tile Count, Resource & Terrain Tallies, Militia, Unrest, Explored Fog-of-War masks, Seat Tile position, Neighbor Adjacency table, Border Entry Tiles, Hex list, and Economic valuation).
   * Added comprehensive technical documentation covering all 208 bytes of the structure in [**PROVINCE_STRUCTURE.md**](PROVINCE_STRUCTURE.md).
 
+## Development notes
+
+See [CHANGELOG.md](CHANGELOG.md) for recent changes and [TODO.md](TODO.md) for
+unresolved findings and follow-up work.
+
+After building the Debug configuration, run the connection checks from the
+repository root with Windows PowerShell:
+
+```powershell
+powershell.exe -NoProfile -STA -File Tests\TerrainConnections.ps1
+powershell.exe -NoProfile -STA -File Tests\GrainTransitions.ps1
+```
+
+`GrainTransitions.ps1` also accepts `-SavePath` for a read-only comparison against
+a reference save. Both scripts accept `-EditorPath` to test another build.
+
 ## Screens
 
 ![Imperialism2SGEditor-screen1](https://github.com/Reken41/Imperialism2_SGEditor/raw/master/Screens/screen1.jpg)

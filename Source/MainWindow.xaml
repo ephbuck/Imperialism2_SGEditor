@@ -97,7 +97,7 @@
               <TextBlock Margin="5" Text="{Binding SelectedMapField.Pos}" VerticalAlignment="Center" HorizontalAlignment="Center" />
               <TextBlock Margin="0,2,0,5" Text="*Position given in two bytes" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
               <TextBlock Text="Type (visual):" Margin="5" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-              <ComboBox x:Name="VisualTypeComboBox" ItemsSource="{Binding Source={x:Static local:DB.LandTypes}}" SelectedValue="{Binding SelectedMapField.RawData[22]}" SelectedValuePath="Id" SelectionChanged="VisualTypeComboBox_SelectionChanged">
+              <ComboBox x:Name="VisualTypeComboBox" ItemsSource="{Binding Source={x:Static local:DB.VisualLandTypes}}" SelectedValue="{Binding SelectedMapField.RawData[22]}" SelectedValuePath="Id" SelectionChanged="VisualTypeComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                   <DataTemplate>
                     <Image Width="48" Height="48" Source="{Binding Image}" Stretch="Fill" HorizontalAlignment="Center" />

@@ -101,6 +101,8 @@ namespace Imperialism_2_SGEditor
     {
       UpdateImg();
       UpdateOwner();
+      // Array element edits do not notify bindings such as the Production dropdown.
+      NotifyPropertyChanged("RawData");
     }
 
     public void UpdateRawData()
